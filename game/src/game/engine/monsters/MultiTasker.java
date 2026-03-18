@@ -1,0 +1,22 @@
+package game.engine.monsters;
+
+public class MultiTasker extends Monster {
+	
+	//Attributes
+	private int normalSpeedTurns;
+	
+	//Constructors
+	public MultiTasker(String name, String description, Role role, int energy) {
+		super(name, description, role, energy);
+		this.normalSpeedTurns = 0;
+	}
+	
+	//NormalSpeedTurns
+	public int getNormalSpeedTurns() {
+		return normalSpeedTurns;
+	}
+	
+	public void setNormalSpeedTurns(int normalSpeedTurns) {
+		this.normalSpeedTurns = normalSpeedTurns;
+	}
+}
