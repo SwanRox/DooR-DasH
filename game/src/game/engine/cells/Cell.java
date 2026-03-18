@@ -1,8 +1,10 @@
 package game.engine.cells;
 
+import game.engine.monsters.Monster;
+
 public class Cell {
 	
-	//Attriubutes
+	//Attributes
 	private String name; //A string representing the name of the cell. This attribute is READ ONLY.
 	private Monster monster; //A Monster object representing the monster currently landed this cell. This attribute is READ AND WRITE
 

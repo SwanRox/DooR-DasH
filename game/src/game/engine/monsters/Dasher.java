@@ -1,5 +1,7 @@
 package game.engine.monsters;
 
+import game.engine.Role;
+
 public class Dasher extends Monster {
 	
 	//Attributes

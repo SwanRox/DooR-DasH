@@ -1,8 +1,10 @@
 package game.engine.cells;
 
+import game.engine.Role;
+
 public class DoorCell extends Cell {
 	
-	//Attriubutes
+	//Attributes
 	Role role; //The role type (SCARER or LAUGHER) that this door supports. This attribute is READ ONLY.
 	int energy; //The amount of energy this door provides. This attribute is READ ONLY.
 	boolean activated; /*Whether this door has been activated or not. Doors start with deactivated and activates 

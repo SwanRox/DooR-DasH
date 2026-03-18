@@ -1,8 +1,10 @@
 package game.engine.cells;
 
+import game.engine.monsters.Monster;
+
 public class MonsterCell extends Cell {
 	
-	//Attriubutes
+	//Attributes
 	private Monster cellMonster; //The monster stationed at this cell. This attribute is READ ONLY.
 	
 	//Constructors
