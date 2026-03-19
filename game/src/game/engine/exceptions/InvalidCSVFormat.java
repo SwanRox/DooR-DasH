@@ -9,17 +9,17 @@ public class InvalidCSVFormat extends IOException{
 	private static final long serialVersionUID = 1L;
 	
 	 //Attributes
-	 static final String MSG = "Invalid input detected while reading csv file, input = \n";
-	 String inputLine; //A variable representing the csv file line. This attribute is READ AND WRITE.
+	 static final private String MSG = "Invalid input detected while reading csv file, input = \n";
+	 static private String inputLine; //A variable representing the csv file line. This attribute is READ AND WRITE.
 	 
 	//Constructors
-	 public InvalidCSVFormat(String inputLine){
-		 this.inputLine = inputLine;
+	 public InvalidCSVFormat(String newInputLine){
+		 inputLine = newInputLine;
 		 super(MSG + inputLine);
 	 }
 	 
-	 public InvalidCSVFormat(String message, String inputLine){
-		 this.inputLine = inputLine;
+	 public InvalidCSVFormat(String message, String newInputLine){
+		 inputLine = newInputLine;
 		 super(message + inputLine);
 	 }
 	 
@@ -28,7 +28,7 @@ public class InvalidCSVFormat extends IOException{
 		 return inputLine;
 	 }
 	 
-	 public void setInputLine(String inputLine) {
-		 this.inputLine = inputLine;
+	 public void setInputLine(String newInputLine) {
+		 inputLine = newInputLine;
 	 }
 }

@@ -19,7 +19,7 @@ public final class Constants {
 		public static final int MIN_ENERGY = 0;
 		
 	//Monster constants:
-		public static final int MULTI_TASKER_BONUS = 200;
+		public static final int MULTITASKER_BONUS = 200;
 		public static final int SCHEMER_STEAL = 10;
 		
 	//Cell constants:

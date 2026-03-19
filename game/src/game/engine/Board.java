@@ -12,7 +12,7 @@ public class Board {
 
 	private static ArrayList<Monster> stationedMonsters; //ArrayList containing monsters stationed on the board at monster cells. This attribute is READ AND WRITE
 	private static ArrayList<Card> originalCards; //ArrayList containing the original cards read from CSV.
-	private static ArrayList<Card> cards; //ArrayList containing the current available cards. This attribute is READ AND WRITE.
+	public static ArrayList<Card> cards; //ArrayList containing the current available cards. This attribute is READ AND WRITE.
 	
 	//Constructors
 	public Board(ArrayList<Card> readCards) {

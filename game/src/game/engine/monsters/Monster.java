@@ -2,13 +2,13 @@ package game.engine.monsters;
 
 import game.engine.Role;
 
-public class Monster {
+public abstract class Monster implements Comparable<Monster>{
 	
 	//Attributes
-    private final String name; //A string representing the monster’s name. This attribute is READ ONLY.
-    private final String description; //A string representing the description of the monster’s special power. This attribute is READ ONLY.
+    private String name; //A string representing the monster’s name. This attribute is READ ONLY.
+    private String description; //A string representing the description of the monster’s special power. This attribute is READ ONLY.
     private Role role;	//An enum representing the role of the monster (SCARER or LAUGHER).
-    private final Role originalRole; //An enum representing the original role of the monster (SCARER or LAUGHER).This attribute is READ ONLY.
+    private Role originalRole; //An enum representing the original role of the monster (SCARER or LAUGHER).This attribute is READ ONLY.
     private int energy;	//An integer representing the amount of energy the monster has collected. (>= 0)
     private int position;	//An integer representing the monster’s current position on the board (0-99).
     private boolean frozen;	//A boolean indicating whether the monster is currently frozen.
@@ -58,6 +58,8 @@ public class Monster {
     }
 
     public void setEnergy(int energy) {
+    	if (energy<0)
+    		energy = 0;
         this.energy = energy;
     }
 
@@ -67,6 +69,8 @@ public class Monster {
     }
 
     public void setPosition(int position) {
+    	if (position>99)
+    		position-=100;
         this.position = position;
     }
 

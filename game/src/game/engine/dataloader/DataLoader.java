@@ -10,9 +10,9 @@ import game.engine.Role;
 
 public class DataLoader {
 	 
-	static String CARDS_FILE_NAME = "cards.csv"; //A String containing the name of the card’s csv file.
-	 static String CELLS_FILE_NAME = "cells.csv"; //A String containing the name of the cell’s csv file.
-	 static String MONSTER_FILE_NAME = "monsters.csv"; //A String containing the name of the monster’s csv file.
+	 static final private String CARDS_FILE_NAME = "cards.csv"; //A String containing the name of the card’s csv file.
+	 static final private String CELLS_FILE_NAME = "cells.csv"; //A String containing the name of the cell’s csv file.
+	 static final private String MONSTERS_FILE_NAME = "monsters.csv"; //A String containing the name of the monster’s csv file.
 	 
 	 //Methods
 	 public static ArrayList<Card> readCards() throws IOException {
@@ -78,7 +78,7 @@ public class DataLoader {
 	 
 	 public static ArrayList<Monster> readMonsters() throws IOException {
 		 ArrayList<Monster> monsters = new ArrayList<>();
-		 try (BufferedReader br = new BufferedReader(new FileReader(MONSTER_FILE_NAME))){
+		 try (BufferedReader br = new BufferedReader(new FileReader(MONSTERS_FILE_NAME))){
 			 String line;
 			 while ((line = br.readLine()) != null) {
 				 String[] values = line.split(",");
