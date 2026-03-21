@@ -14,13 +14,13 @@ public class InvalidCSVFormat extends IOException{
 	 
 	//Constructors
 	 public InvalidCSVFormat(String newInputLine){
-		 super(MSG + inputLine);
+		 super(MSG + newInputLine);
 		 inputLine = newInputLine;
 		
 	 }
 	 
 	 public InvalidCSVFormat(String message, String newInputLine){
-		 super(message + inputLine);
+		 super(message + newInputLine);
 		 inputLine = newInputLine;
 		 
 	 }
