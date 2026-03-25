@@ -10,9 +10,9 @@ import game.engine.Role;
 
 public class DataLoader {
 	 
-	 static final private String CARDS_FILE_NAME = "cards.csv"; //A String containing the name of the card’s csv file.
-	 static final private String CELLS_FILE_NAME = "cells.csv"; //A String containing the name of the cell’s csv file.
-	 static final private String MONSTERS_FILE_NAME = "monsters.csv"; //A String containing the name of the monster’s csv file.
+	 static final private String CARDS_FILE_NAME = "cards.csv"; //A String containing the name of the card's csv file.
+	 static final private String CELLS_FILE_NAME = "cells.csv"; //A String containing the name of the cell's csv file.
+	 static final private String MONSTERS_FILE_NAME = "monsters.csv"; //A String containing the name of the monster's csv file.
 	 
 	 //Methods
 	 public static ArrayList<Card> readCards() throws IOException {
