@@ -7,7 +7,7 @@ public class OutOfEnergyException extends GameActionException {
 	 */
 	private static final long serialVersionUID = 1L;
 	//Attributes
-	static final private String MSG = "Not Enough Energy for Power Up";
+	private static final String MSG = "Not Enough Energy for Power Up";
 	
 	//Constructors
 	public OutOfEnergyException(){

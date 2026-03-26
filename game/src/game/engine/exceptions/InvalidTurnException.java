@@ -7,7 +7,7 @@ public class InvalidTurnException extends GameActionException {
 	 */
 	private static final long serialVersionUID = 1L;
 	//Attributes
-	static final private String MSG = "Action done on wrong turn";
+	private static final String MSG = "Action done on wrong turn";
 	
 	//Constructors
 	 public InvalidTurnException() {

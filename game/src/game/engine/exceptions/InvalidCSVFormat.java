@@ -9,8 +9,8 @@ public class InvalidCSVFormat extends IOException{
 	private static final long serialVersionUID = 1L;
 	
 	 //Attributes
-	 static final private String MSG = "Invalid input detected while reading csv file, input = \n";
-	 static private String inputLine; //A variable representing the csv file line. This attribute is READ AND WRITE.
+	private static final String MSG = "Invalid input detected while reading csv file, input = \n";
+	private static String inputLine; //A variable representing the csv file line. This attribute is READ AND WRITE.
 	 
 	//Constructors
 	 public InvalidCSVFormat(String newInputLine){

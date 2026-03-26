@@ -7,7 +7,7 @@ public class InvalidMoveException extends GameActionException {
 	 */
 	private static final long serialVersionUID = 1L;
 	//Attributes
-	static final private String MSG = "Invalid move attempted";
+	private static final String MSG = "Invalid move attempted";
 	
 	//Constructors
 	public InvalidMoveException(){
