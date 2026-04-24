@@ -23,7 +23,21 @@ public class MultiTasker extends Monster {
 	}
 	
 	//Methods
+	 public void move(int distance) {
+		 if(this.getNormalSpeedTurns() > 0)
+			 this.setPosition(this.getPosition() + distance);
+		 else
+			 this.setPosition(this.getPosition() + (distance/2));
+	 }
+	    
+	 public void alterEnergy(int energy) {
+		 	if (this.isShielded() && energy < 0)
+		 		this.setShielded(false);
+		 	else 
+		 		this.setEnergy(this.getEnergy() + energy + 200);
+	 }
+	    
 	public void executePowerupEffect(Monster opponentMonster) {
-		
+		this.setNormalSpeedTurns(2);
 	}
 }
