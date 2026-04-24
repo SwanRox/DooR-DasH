@@ -1,5 +1,7 @@
 package game.engine.cards;
 
+import game.engine.monsters.Monster;
+
 public class EnergyStealCard extends Card{
 	
 	//Attributes
@@ -14,5 +16,14 @@ public class EnergyStealCard extends Card{
 	 // Getters for read-only fields
 	public int getEnergy() {
 		return energy;
+	}
+	
+	public void performAction(Monster player, Monster opponent){
+		if(opponent.getEnergy()<this.energy){
+			player.setEnergy(player.getEnergy() + opponent.getEnergy());
+			opponent.setEnergy(0);
+		}
+		player.setEnergy(player.getEnergy()+this.energy);
+		opponent.setEnergy(opponent.getEnergy()-this.energy);
 	}
 }
