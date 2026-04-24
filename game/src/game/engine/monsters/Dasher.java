@@ -23,7 +23,15 @@ public class Dasher extends Monster {
 	}
 	
 	//Methods
+	
+    public void move(int distance) {
+    	if(this.getMomentumTurns()>0)
+    		this.setPosition(this.getPosition() + (distance * 3));
+    	else
+    		this.setPosition(this.getPosition() + (distance * 2));
+    }
+    
 	public void executePowerupEffect(Monster opponentMonster) {
-		
+		this.setMomentumTurns(3);
 	}
 }
