@@ -1,8 +1,9 @@
 package game.engine.cards;
 
+import game.engine.interfaces.CanisterModifier;
 import game.engine.monsters.Monster;
 
-public class EnergyStealCard extends Card{
+public class EnergyStealCard extends Card implements CanisterModifier{
 	
 	//Attributes
 	private int energy;
