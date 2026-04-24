@@ -1,5 +1,6 @@
 package game.engine.monsters;
 
+import game.engine.Constants;
 import game.engine.Role;
 
 public abstract class Monster implements Comparable<Monster>{
@@ -58,9 +59,7 @@ public abstract class Monster implements Comparable<Monster>{
     }
 
     public void setEnergy(int energy) {
-    	if (energy<0)
-    		energy = 0;
-        this.energy = energy;
+    	this.energy = Math.max(Constants.MIN_ENERGY, energy);
     }
 
     // Position
@@ -69,9 +68,7 @@ public abstract class Monster implements Comparable<Monster>{
     }
 
     public void setPosition(int position) {
-    	if (position>99)
-    		position-=100;
-        this.position = position;
+		this.position = position % Constants.BOARD_SIZE;
     }
 
     // Frozen

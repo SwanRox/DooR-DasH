@@ -1,9 +1,12 @@
 package game.engine.cells;
 
-public class ContaminationSock extends TransportCell {
-	
-	//Constructors
-	public ContaminationSock(String name, int effect) { //The effect value is always negative.
+import game.engine.interfaces.CanisterModifier;
+
+public class ContaminationSock extends TransportCell implements CanisterModifier {
+
+	public ContaminationSock(String name, int effect) {
 		super(name, effect);
 	}
+	
+
 }

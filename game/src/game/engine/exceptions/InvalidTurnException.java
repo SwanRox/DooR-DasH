@@ -1,20 +1,15 @@
 package game.engine.exceptions;
 
-public class InvalidTurnException extends GameActionException {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	//Attributes
+@SuppressWarnings("serial")
+public class InvalidTurnException extends GameActionException{
 	private static final String MSG = "Action done on wrong turn";
-	
-	//Constructors
-	 public InvalidTurnException() {
-		 super(MSG);
-	 }
-	 
-	 public InvalidTurnException(String message) {
-		 super(message);
-	 }
+
+	public InvalidTurnException() {
+		super(MSG);
+	}
+
+	public InvalidTurnException(String message){
+		super(message);
+	}
+
 }
