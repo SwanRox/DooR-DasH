@@ -1,5 +1,6 @@
 package game.engine.cards;
 
+import game.engine.Role;
 import game.engine.monsters.Monster;
 
 public class ConfusionCard extends Card {
@@ -18,5 +19,6 @@ public class ConfusionCard extends Card {
 		return duration;
 	}
 	
-	public void performAction(Monster player, Monster opponent){}
+	public void performAction(Monster player, Monster opponent){
+	}
 }
