@@ -1,5 +1,8 @@
 package game.engine.cards;
 
+import game.engine.Role;
+import game.engine.monsters.Monster;
+
 public class ConfusionCard extends Card {
 	
 	//Attributes
@@ -14,5 +17,8 @@ public class ConfusionCard extends Card {
 	// Getters for read-only fields
 	public int getDuration() {
 		return duration;
+	}
+	
+	public void performAction(Monster player, Monster opponent){
 	}
 }
