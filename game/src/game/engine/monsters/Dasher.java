@@ -21,4 +21,9 @@ public class Dasher extends Monster {
 	public void setMomentumTurns(int momentumTurns) {
 		this.momentumTurns = momentumTurns;
 	}
+	
+	//Methods
+	public void executePowerupEffect(Monster opponentMonster) {
+		
+	}
 }
