@@ -101,8 +101,36 @@ public abstract class Monster implements Comparable<Monster>{
         this.confusionTurns = confusionTurns;
     }
     
+
+    
     //overrides
     public int compareTo(Monster o) {
     	return this.position - o.position;
+    }
+    
+    //Methods
+    public abstract void executePowerupEffect(Monster opponentMonster);
+    
+    public boolean isConfused() {
+		return this.getConfusionTurns() > 0 ;
+    }
+    
+    public void move(int distance) {
+    	this.setPosition(this.getPosition() + distance);
+    }
+    
+    public void alterEnergy(int energy) {
+    	if (this.isShielded() && energy < 0)
+    		this.setShielded(false);
+    	else 
+    		this.setEnergy(this.getEnergy() + energy);
+    }
+    
+    public void decrementConfusion() {
+    	if (this.getConfusionTurns() > 0) {
+    		this.setConfusionTurns(this.getConfusionTurns() - 1);
+    		if (this.getConfusionTurns() == 0)
+    			this.setRole(this.originalRole);
+    	}
     }
 }
