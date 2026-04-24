@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
 
 public class Game {
@@ -56,4 +57,23 @@ public class Game {
 	    		.orElse(null);
 	}
 	
+	private Monster getCurrentOpponent() {
+		if (this.getCurrent() == this.getPlayer())
+			return this.getOpponent();
+		else
+			return this.getPlayer();
+	}
+	
+	private int rollDice() {
+		return (int)(Math.random() * 6) + 1;
+	}
+	
+	void usePowerup() throws OutOfEnergyException {
+		if(this.getCurrent().getEnergy()>Constants.POWERUP_COST) {
+			this.getCurrent().alterEnergy(-Constants.POWERUP_COST);
+			this.getCurrent().executePowerupEffect(this.getCurrentOpponent());
+		}else {
+			throw new OutOfEnergyException();
+		}
+	}
 }
