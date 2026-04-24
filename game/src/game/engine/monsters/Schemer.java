@@ -1,6 +1,7 @@
 package game.engine.monsters;
 
 import game.engine.*;
+import game.engine.exceptions.OutOfEnergyException;
 
 public class Schemer extends Monster {
 	
@@ -15,6 +16,15 @@ public class Schemer extends Monster {
 			return target.getEnergy();
 		else
 			return Constants.SCHEMER_STEAL;
+	}
+	
+
+	    
+	public void alterEnergy(int energy) {
+	    if (this.isShielded() && energy < 0)
+	    	this.setShielded(false);
+	    else 
+	    	this.setEnergy(this.getEnergy() + energy + 10);
 	}
 		
 	public void executePowerupEffect(Monster opponentMonster) {
