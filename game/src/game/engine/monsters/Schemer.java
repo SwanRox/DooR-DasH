@@ -18,16 +18,21 @@ public class Schemer extends Monster {
 			return Constants.SCHEMER_STEAL;
 	}
 	
-
-	    
-	public void alterEnergy(int energy) {
-	    if (this.isShielded() && energy < 0)
-	    	this.setShielded(false);
-	    else 
-	    	this.setEnergy(this.getEnergy() + energy + 10);
-	}
 		
 	public void executePowerupEffect(Monster opponentMonster) {
+		int energyFromOpponent;
+		if(opponentMonster.isShielded())
+			energyFromOpponent = 0;
+		else
+			energyFromOpponent = stealEnergyFrom(opponentMonster);
 		
+		int totalEnergy = energyFromOpponent;
+		
+		for(Monster m: Board.getStationedMonsters()) {
+			int stolenAmount = stealEnergyFrom(m);
+			totalEnergy+= stolenAmount;
+			m.alterEnergy(stolenAmount);
+		}
+		this.alterEnergy(totalEnergy);
 	}
 }

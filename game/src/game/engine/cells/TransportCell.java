@@ -1,5 +1,7 @@
 package game.engine.cells;
 
+import game.engine.monsters.Monster;
+
 public abstract class TransportCell extends Cell {
 	
 	//Attributes
@@ -14,5 +16,9 @@ public abstract class TransportCell extends Cell {
 	//Getters for read-only fields
 	public int getEffect() {
 		return effect;
+	}
+	
+	public void transport(Monster monster) {
+		monster.move(this.getEffect());
 	}
 }

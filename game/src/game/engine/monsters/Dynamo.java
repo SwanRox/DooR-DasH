@@ -13,11 +13,4 @@ public class Dynamo extends Monster{
 	public void executePowerupEffect(Monster opponentMonster) {
 		opponentMonster.setFrozen(true);
 	}
-	
-    public void alterEnergy(int energy) {
-    	if (this.isShielded() && energy < 0)
-    		this.setShielded(false);
-    	else 
-    		this.setEnergy(this.getEnergy() + (energy * 2));
-    }
 }

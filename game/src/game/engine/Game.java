@@ -24,6 +24,14 @@ public class Game {
 		this.player = selectRandomMonsterByRole(playerRole);
 		this.opponent = selectRandomMonsterByRole(playerRole == Role.SCARER ? Role.LAUGHER : Role.SCARER);
 		this.current = player;
+		
+		ArrayList<Monster> stationedMonsters = new ArrayList<>();
+		stationedMonsters = this.getAllMonsters();
+		stationedMonsters.remove(getPlayer());
+		stationedMonsters.remove(getOpponent());
+		
+		Board.setStationedMonsters(stationedMonsters);
+		this.getBoard().initializeBoard(DataLoader.readCells());
 	}
 	
 	public Board getBoard() {
@@ -83,7 +91,7 @@ public class Game {
 				this.getCurrent().setFrozen(false);
 			else {
 				int distance = this.rollDice();
-				this.getCurrent().move(distance);
+				this.board.moveMonster(getCurrent(), distance, getOpponent());
 				this.switchTurn();
 			}
 	}
@@ -93,7 +101,7 @@ public class Game {
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
-		if(monster.getPosition() == 99 && monster.getEnergy()>=1000)
+		if(monster.getPosition() == Constants.WINNING_POSITION && monster.getEnergy()>=Constants.WINNING_ENERGY)
 			return true;
 		return false;
 	}

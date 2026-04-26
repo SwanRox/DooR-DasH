@@ -25,9 +25,10 @@ public class Dasher extends Monster {
 	//Methods
 	
     public void move(int distance) {
-    	if(this.getMomentumTurns()>0)
+    	if(this.getMomentumTurns()>0) {
     		this.setPosition(this.getPosition() + (distance * 3));
-    	else
+    	this.setMomentumTurns(this.getMomentumTurns()-1);
+    	}else
     		this.setPosition(this.getPosition() + (distance * 2));
     }
     

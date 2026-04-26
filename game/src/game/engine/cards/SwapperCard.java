@@ -10,8 +10,10 @@ public class SwapperCard extends Card{
 	}
 	
 	public void performAction(Monster player, Monster opponent){
-		int temp = player.getPosition();
-		player.setPosition(opponent.getPosition());
-		opponent.setPosition(temp);
+		if(player.getPosition()<opponent.getPosition()) {
+			int temp = player.getPosition();
+			player.setPosition(opponent.getPosition());
+			opponent.setPosition(temp);
+		}
 	}
 }
