@@ -136,32 +136,30 @@ public class Board {
 	}
 	
 	public void moveMonster(Monster currentMonster, int roll, Monster opponentMonster) throws InvalidMoveException {
+	   
 	    int originalPosition = currentMonster.getPosition();
+	    int originalEnergy = currentMonster.getEnergy();
+	    boolean originalShield = currentMonster.isShielded();
 	    
+	  
 	    currentMonster.move(roll);
-	    
 	    Cell landedCell = getCell(currentMonster.getPosition());
 	    landedCell.onLand(currentMonster, opponentMonster);
 	    
+	    
 	    if (currentMonster.getPosition() == opponentMonster.getPosition()) {
+	        
 	        currentMonster.setPosition(originalPosition);
+	        currentMonster.setEnergy(originalEnergy);
+	        currentMonster.setShielded(originalShield);
+	        
 	        this.updateMonsterPositions(currentMonster, opponentMonster);
 	        throw new InvalidMoveException();
 	    }
 	    
-	    if (currentMonster.isConfused()) {
-	        currentMonster.setConfusionTurns(currentMonster.getConfusionTurns() - 1);
-	        if (currentMonster.getConfusionTurns() == 0) {
-	            currentMonster.setRole(currentMonster.getOriginalRole());
-	        }
-	    }
-	    
-	    if (opponentMonster.isConfused()) {
-	        opponentMonster.setConfusionTurns(opponentMonster.getConfusionTurns() - 1);
-	        if (opponentMonster.getConfusionTurns() == 0) {
-	            opponentMonster.setRole(opponentMonster.getOriginalRole());
-	        }
-	    }
+	   
+	    currentMonster.decrementConfusion(); 
+	    opponentMonster.decrementConfusion();
 	    
 	    this.updateMonsterPositions(currentMonster, opponentMonster);
 	}
