@@ -87,8 +87,10 @@ public class Game {
 	}
 	
 	public void playTurn() throws InvalidMoveException {
-			if (this.getCurrent().isFrozen()) 
+			if (this.getCurrent().isFrozen()){
 				this.getCurrent().setFrozen(false);
+				this.switchTurn();
+			}
 			else {
 				int distance = this.rollDice();
 				this.board.moveMonster(getCurrent(), distance, getOpponent());
