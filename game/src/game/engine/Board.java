@@ -50,6 +50,9 @@ public class Board {
 	}
 	
 //<<<<<<< HEAD
+//<<<<<<< HEAD
+//=======
+//>>>>>>> ea1a9aeec0e430835499029a6cacac2c05e54b14
 	private int[] indexToRowCol(int index) {
 		int row = index/10;
 		int column;
