@@ -42,4 +42,21 @@ public class Board {
 	public static void setCards(ArrayList<Card> cards) {
 		Board.cards = cards;
 	}
+	
+	private int[] indexToRowCol(int index){
+		int col;
+		int row = (index/10)+1;
+		
+		if (row % 2  == 0)
+			col = (index % 10);
+		else
+			col = 10 - (index % 10);
+		int[] coordinates = {row,col};  
+		
+		return coordinates;
+	}
+	
+	private Cell getCell(int index){
+		return indexToRowCol(index);
+	}
 }
