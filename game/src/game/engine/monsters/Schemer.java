@@ -26,12 +26,13 @@ public class Schemer extends Monster {
 		else
 			energyFromOpponent = stealEnergyFrom(opponentMonster);
 		
+		opponentMonster.alterEnergy(-energyFromOpponent);
 		int totalEnergy = energyFromOpponent;
 		
 		for(Monster m: Board.getStationedMonsters()) {
 			int stolenAmount = stealEnergyFrom(m);
 			totalEnergy+= stolenAmount;
-			m.alterEnergy(stolenAmount);
+			m.alterEnergy(-stolenAmount);
 		}
 		this.alterEnergy(totalEnergy);
 	}
