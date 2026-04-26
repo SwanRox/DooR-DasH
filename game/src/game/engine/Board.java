@@ -136,21 +136,34 @@ public class Board {
 	}
 	
 	public void moveMonster(Monster currentMonster, int roll, Monster opponentMonster) throws InvalidMoveException {
-		this.updateMonsterPositions(currentMonster, opponentMonster);
-		
-		if(this.getCell(currentMonster.getPosition() + roll).isOccupied()) {
-			throw new InvalidMoveException();
-		}else {
-			currentMonster.move(roll);
-			Cell landedCell = getCell(currentMonster.getPosition());
-			landedCell.onLand(currentMonster, opponentMonster);
-		}
-		
-		if(currentMonster.isConfused())
-			currentMonster.decrementConfusion();
-		if(opponentMonster.isConfused())
-			opponentMonster.decrementConfusion();
-		this.updateMonsterPositions(currentMonster, opponentMonster);
+	    int originalPosition = currentMonster.getPosition();
+	    
+	    currentMonster.move(roll);
+	    
+	    Cell landedCell = getCell(currentMonster.getPosition());
+	    landedCell.onLand(currentMonster, opponentMonster);
+	    
+	    if (currentMonster.getPosition() == opponentMonster.getPosition()) {
+	        currentMonster.setPosition(originalPosition);
+	        this.updateMonsterPositions(currentMonster, opponentMonster);
+	        throw new InvalidMoveException();
+	    }
+	    
+	    if (currentMonster.isConfused()) {
+	        currentMonster.setConfusionTurns(currentMonster.getConfusionTurns() - 1);
+	        if (currentMonster.getConfusionTurns() == 0) {
+	            currentMonster.setRole(currentMonster.getOriginalRole());
+	        }
+	    }
+	    
+	    if (opponentMonster.isConfused()) {
+	        opponentMonster.setConfusionTurns(opponentMonster.getConfusionTurns() - 1);
+	        if (opponentMonster.getConfusionTurns() == 0) {
+	            opponentMonster.setRole(opponentMonster.getOriginalRole());
+	        }
+	    }
+	    
+	    this.updateMonsterPositions(currentMonster, opponentMonster);
 	}
 	
 	private void updateMonsterPositions(Monster player, Monster opponent) {
