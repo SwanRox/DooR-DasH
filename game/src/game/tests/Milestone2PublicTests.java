@@ -1710,7 +1710,7 @@ public class Milestone2PublicTests {
 	@Test(timeout = 1000)
 	public void testDoorCellModifyCanisterEnergyWithMonsterOfDifferentRoleWithOutShield() {
 		
-		//create a daher monster
+		//create a dasher monster
 		Object dasherMonster = null;
 		try {
 		    dasherMonster = createDasher();

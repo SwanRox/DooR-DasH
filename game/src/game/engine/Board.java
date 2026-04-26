@@ -49,7 +49,7 @@ public class Board {
 		Board.cards = cards;
 	}
 	
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	private int[] indexToRowCol(int index) {
 		int row = index/10;
 		int column;
@@ -127,8 +127,8 @@ public class Board {
 	public static Card drawCard() {
 		if(cards.size() == 0)
 			reloadCards();
-		Card c = cards.getFirst();
-		cards.removeFirst();
+		Card c = cards.get(0);
+		cards.remove(0);
 		return c;
 	}
 	
@@ -159,22 +159,9 @@ public class Board {
 		playerCell.setMonster(player);
 		Cell opponentCell = this.getCell(opponent.getPosition());
 		opponentCell.setMonster(opponent);
-=======
-	private int[] indexToRowCol(int index){
-		int col;
-		int row = (index/10)+1;
-		
-		if (row % 2  == 0)
-			col = (index % 10);
-		else
-			col = 10 - (index % 10);
-		int[] coordinates = {row,col};  
-		
-		return coordinates;
 	}
-	
-	private Cell getCell(int index){
-		return indexToRowCol(index);
->>>>>>> e1709b68d11f1f189e4915e96eacf1ac87342fae
-	}
+
+
+
+
 }
