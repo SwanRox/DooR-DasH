@@ -126,8 +126,8 @@ public class Board {
 	public static Card drawCard() {
 		if(cards.size() == 0)
 			reloadCards();
-		Card c = cards.getFirst();
-		cards.removeFirst();
+		Card c = cards.get(0);
+		cards.remove(0);
 		return c;
 	}
 	
