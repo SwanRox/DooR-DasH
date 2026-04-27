@@ -35,7 +35,6 @@ public class EnergyStealCard extends Card implements CanisterModifier{
 
 	@Override
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-		// TODO Auto-generated method stub
-		
+		monster.alterEnergy(canisterValue);
 	}
 }

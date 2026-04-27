@@ -66,7 +66,10 @@ public class DoorCell extends Cell implements CanisterModifier{
 
 	@Override
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-		monster.alterEnergy(canisterValue);
+		if(monster.getRole() == this.getRole())
+			monster.alterEnergy(canisterValue);
+		else
+			monster.alterEnergy(-canisterValue);
 		
 	}
 }

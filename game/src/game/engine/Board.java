@@ -49,19 +49,13 @@ public class Board {
 		Board.cards = cards;
 	}
 	
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-//=======
-//>>>>>>> ea1a9aeec0e430835499029a6cacac2c05e54b14
 	private int[] indexToRowCol(int index) {
 		int row = index/10;
-		int column;
-		if(row%2 == 1)
-			column = 9-index%10;
-		else
-			column = index%10;
+		int col = index%10;
+		if (row % 2 == 1)
+			col = 10 - 1 - col;
 		
-		int[] a = {row,column};
+		int[] a = {row,col};
 		return a;
 	}
 	
@@ -82,6 +76,7 @@ public class Board {
 	public void initializeBoard(ArrayList<Cell> specialCells) {
 		int c = 0;
 		int s = 0;
+		
 		for(int i = 1, j = 0; i<Constants.BOARD_SIZE;i+=2, j++) 
 			setCell(i, specialCells.get(j));
 		
@@ -99,20 +94,20 @@ public class Board {
 			setCell(x, new CardCell("Card Cell"));
 		}
 		
-		for(int x:Constants.MONSTER_CELL_INDICES) {
-			setCell(x, new MonsterCell("MonsterCell", null));
+		if(getStationedMonsters().isEmpty() == false) {
+			for(int x = 0; x<getStationedMonsters().size();x++) {
+				setCell(Constants.MONSTER_CELL_INDICES[x], new MonsterCell(getStationedMonsters().get(x).getName(),getStationedMonsters().get(x)));
+				getStationedMonsters().get(x).setPosition(Constants.MONSTER_CELL_INDICES[x]);
+			}
 		}
 		
-		for(int i = 0; i<Constants.BOARD_SIZE; i+=2){
+		for(int i = 0; i<Constants.BOARD_SIZE; i++){
 			if(getCell(i) == null) 
 				setCell(i, new Cell("Rest Cell"));
 		}
 		
-		
-		//for(int i = 0; i<Constants.BOARD_SIZE; i++)
-		//	System.out.println(getCell(i).getName());
 	}
-	
+
 	private void setCardsByRarity() {
 		ArrayList<Card> a = new ArrayList<>();
 		for(Card c: getOriginalCards()) {
@@ -157,9 +152,10 @@ public class Board {
 	        throw new InvalidMoveException();
 	    }
 	    
-	   
-	    currentMonster.decrementConfusion(); 
-	    opponentMonster.decrementConfusion();
+	    if(currentMonster.isConfused() && opponentMonster.isConfused()){
+	    	currentMonster.decrementConfusion(); 
+	    	opponentMonster.decrementConfusion();
+	    }
 	    
 	    this.updateMonsterPositions(currentMonster, opponentMonster);
 	}

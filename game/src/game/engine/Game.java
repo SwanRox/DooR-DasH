@@ -26,12 +26,15 @@ public class Game {
 		this.current = player;
 		
 		ArrayList<Monster> stationedMonsters = new ArrayList<>();
+		
 		stationedMonsters = this.getAllMonsters();
 		stationedMonsters.remove(getPlayer());
 		stationedMonsters.remove(getOpponent());
 		
 		Board.setStationedMonsters(stationedMonsters);
+		
 		this.getBoard().initializeBoard(DataLoader.readCells());
+		
 	}
 	
 	public Board getBoard() {
@@ -78,7 +81,9 @@ public class Game {
 	}
 	
 	public void usePowerup() throws OutOfEnergyException {
-		if(this.getCurrent().getEnergy()>Constants.POWERUP_COST) {
+		
+		if(this.getCurrent().getEnergy()>=Constants.POWERUP_COST) {
+			
 			this.getCurrent().alterEnergy(-Constants.POWERUP_COST);
 			this.getCurrent().executePowerupEffect(this.getCurrentOpponent());
 		}else {
@@ -109,6 +114,7 @@ public class Game {
 	}
 	
 	public Monster getWinner() {
+		System.out.println(this.getCurrent());
 		if(this.checkWinCondition(this.getCurrent()))
 			return this.getCurrent();
 		if(this.checkWinCondition(this.getCurrentOpponent()))
