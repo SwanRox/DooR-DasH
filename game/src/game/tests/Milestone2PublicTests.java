@@ -1480,7 +1480,7 @@ public class Milestone2PublicTests {
 	@Test(timeout = 1000)
 	public void testDoorCellModifyCanisterEnergyWithMonsterOfSameRoleWithOutShield() {
 		
-		//create a dasher monster
+		//create a daher monster
 		Object dasherMonster = null;
 		try {
 		    dasherMonster = createDasher();
@@ -1710,7 +1710,7 @@ public class Milestone2PublicTests {
 	@Test(timeout = 1000)
 	public void testDoorCellModifyCanisterEnergyWithMonsterOfDifferentRoleWithOutShield() {
 		
-		//create a dasher monster
+		//create a daher monster
 		Object dasherMonster = null;
 		try {
 		    dasherMonster = createDasher();
