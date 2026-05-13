@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   
+   <top>
+      <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Instructions" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+
+   <center>
+      <HBox alignment="CENTER" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            
+            <Group>
+               <children>
+                  <ProgressBar prefHeight="30.0" prefWidth="500.0" progress="0.25" rotate="-90.0" />
+               </children>
+            </Group>
+
+            <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
+              <columnConstraints>
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+                  <ColumnConstraints percentWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints percentHeight="10.0" />
+              </rowConstraints>
+            </GridPane>
+
+            <Group>
+               <children>
+                  <ProgressBar prefHeight="30.0" prefWidth="500.0" progress="0.75" rotate="-90.0" />
+               </children>
+            </Group>
+            
+         </children>
+      </HBox>
+   </center>
+   
+</BorderPane>
