@@ -19,7 +19,7 @@ public class Controller extends Application{
 		
 		Scene mainMenu = new Scene(root,1280,800);
 		primaryStage.setScene(mainMenu);
-		primaryStage.setTitle("Test Name");
+		primaryStage.setTitle("Door Dash");
 		primaryStage.show();
 	}
 	public static void main (String[]args){
