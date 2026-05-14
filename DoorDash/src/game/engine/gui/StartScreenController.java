@@ -27,10 +27,20 @@ public class StartScreenController {
 
             // 2. Get the current Stage (Window) from the button that was clicked
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+            double x = stage.getX();
+            double y = stage.getY();
+            
             // 3. Create a new Scene with the Board root and set it on the Stage
             Scene boardScene = new Scene(boardRoot);
             stage.setScene(boardScene);
+            
+            stage.setWidth(width);
+            stage.setHeight(height);
+            stage.setX(x);
+            stage.setY(y);
+            
             stage.show();
 
         } catch (IOException e) {
