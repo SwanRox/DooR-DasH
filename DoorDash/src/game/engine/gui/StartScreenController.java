@@ -11,28 +11,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import game.engine.gui.Controller;
-
 public class StartScreenController {
 
     @FXML
     public void onExitButton(ActionEvent event){
         Platform.exit();
-    };
+    }
+
+    @FXML
     public void onPlayButtonClicked(ActionEvent event) {
         try {
-            // 1. Load the Board Screen FXML
-        	System.out.println("Button was clicked!");
-            Parent boardRoot = FXMLLoader.load(getClass().getResource("game.fxml")); // Replace with your actual filename
+            System.out.println("Play Button was clicked!");
+            Parent boardRoot = FXMLLoader.load(getClass().getResource("game.fxml"));
 
-            // 2. Get the current Stage (Window) from the button that was clicked
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             double width = stage.getWidth();
             double height = stage.getHeight();
             double x = stage.getX();
             double y = stage.getY();
             
-            // 3. Create a new Scene with the Board root and set it on the Stage
             Scene boardScene = new Scene(boardRoot);
             stage.setScene(boardScene);
             
@@ -45,7 +42,13 @@ public class StartScreenController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exception (e.g., show an error dialog)
         }
+    }
+
+    // Add this method to handle the Instructions button click
+    @FXML
+    public void onInstructionsButtonClicked(ActionEvent event) {
+        System.out.println("Instructions Button was clicked!");
+        InstructionsController.openInstructions();
     }
 }

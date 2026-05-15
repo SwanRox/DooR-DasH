@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.GameController">
    
    <top>
       <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Instructions" />
+           <Button minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50em; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 28px;" text="?" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />

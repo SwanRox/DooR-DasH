@@ -53,7 +53,7 @@
             <VBox alignment="CENTER" spacing="15.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onPlayButtonClicked" prefHeight="40.0" prefWidth="200.0" text="Play" />
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Instructions" />
+                  <Button mnemonicParsing="false" onAction="#onInstructionsButtonClicked" prefHeight="40.0" prefWidth="200.0" text="Instructions" />
                   <Button mnemonicParsing="false" onAction="#onExitButton" prefHeight="40.0" prefWidth="200.0" text="Exit" />
                </children>
             </VBox>
