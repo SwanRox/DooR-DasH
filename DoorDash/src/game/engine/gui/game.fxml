@@ -45,7 +45,7 @@
                </children>
             </StackPane>
 
-            <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
+            <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="true" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
               <columnConstraints>
                   <ColumnConstraints percentWidth="10.0" />
                   <ColumnConstraints percentWidth="10.0" />
@@ -61,7 +61,7 @@
               <rowConstraints>
                   <RowConstraints percentHeight="10.0" />
                   <RowConstraints percentHeight="10.0" />
-                  <RowConstraints percentHeight="10.0" />
+                  <RowConstraints maxHeight="45.0" minHeight="45.0" percentHeight="10.0" prefHeight="45.0" />
                   <RowConstraints percentHeight="10.0" />
                   <RowConstraints percentHeight="10.0" />
                   <RowConstraints percentHeight="10.0" />
