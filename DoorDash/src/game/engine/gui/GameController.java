@@ -18,6 +18,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane; // Make sure to import this!
+import javafx.scene.text.Text;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 
@@ -26,6 +27,10 @@ import java.util.Random;
 public class GameController {
 
     // 1. Link the GridPane from your FXML to the controller
+	@FXML
+    private Text playerStats;
+	@FXML
+    private Text opponentStats;
 	@FXML
     private Label playerLabel;
 	@FXML
@@ -73,6 +78,7 @@ public class GameController {
     private void initializeBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
         Random random = new Random();
+        updateGameInfo();
         
         for (int i = 0; i < cellArray.length; i++) {
             for (int j = 0; j < cellArray[i].length; j++) {
@@ -129,10 +135,36 @@ public class GameController {
     	
     }
     
+    private void updateGameInfo(){
+    	playerStats.setText(
+    			"Name: " + player.getName() + "\n"
+    			+"Original Role: " + player.getOriginalRole() + "\n"
+    			+"Current Role: " + player.getRole() + "\n"
+    			+"Type: " + "\n"
+    			+"Energy: " + player.getEnergy() + "\n"
+    			+"Position: " + player.getPosition() + "\n"
+    			+"Shield: " + player.isShielded() + "\n"
+    			+"Confused: " + player.isConfused() + "\n"
+    			+"Frozen: " + player.isFrozen() + "\n"
+    			);
+    	opponentStats.setText(
+    			"Name: " + opponent.getName() + "\n"
+    			+"Original Role: " + opponent.getOriginalRole() + "\n"
+    			+"Current Role: " + opponent.getRole() + "\n"
+    			+"Type: " + "\n"
+    			+"Energy: " + opponent.getEnergy() + "\n"
+    			+"Position: " + opponent.getPosition() + "\n"
+    			+"Shield: " + opponent.isShielded() + "\n"
+    			+"Confused: " + opponent.isConfused() + "\n"
+    			+"Frozen: " + opponent.isFrozen() + "\n"
+    			);
+    }
+    
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
         boardGrid.getChildren().removeIf(node -> node instanceof ImageView);
         updateEnergyProgress();
+        updateGameInfo();
         
         // Optional: If you call this method every turn, you might want to clear 
         // the grid first so images don't stack on top of each other forever.
@@ -273,7 +305,7 @@ public class GameController {
         }
     @FXML
     public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();
-    updateEnergyProgress();}
+    updateBoardGraphics();}
    
     public void onRollDice(ActionEvent event) throws InvalidMoveException{gameEngine.playTurn();
     	updateBoardGraphics();}

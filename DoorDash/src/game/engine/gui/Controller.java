@@ -20,6 +20,7 @@ public class Controller extends Application{
 		primaryStage.setScene(mainMenu);
 		primaryStage.setTitle("Door Dash");
 		primaryStage.show();
+		primaryStage.setMaximized(true);
 	}
 	
 	public static void main (String[]args){
