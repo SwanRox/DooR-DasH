@@ -105,4 +105,19 @@ public class GameController {
         System.out.println("Help button clicked in the game!");
         InstructionsController.openInstructions();
     }
-}
+    
+    @FXML
+    public void onReturnButtonClicked(ActionEvent event)
+    {
+    	System.out.println("Return Button was clicked in game!");
+            try {
+               
+                javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
+                javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new javafx.scene.Scene(root, 1280, 800));
+                stage.show();
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
