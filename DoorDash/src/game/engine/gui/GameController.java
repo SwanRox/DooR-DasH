@@ -156,9 +156,8 @@ public class GameController {
     private String setDoorActive(String doorName){
     	if (doorName.length() == 13){
     		String doorNumber = doorName.charAt(12) + "";
-    		//for random door sprite
-    		//return "dooractive" +  doorNumber+ ".png";
-    		return "dooractive.png";
+    		doorNumber="1"; //temporary until we add more icons for doors
+    		return "dooractive" +  doorNumber+ ".png";
     	}
     	return doorName;
     	
