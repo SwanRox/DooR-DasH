@@ -108,7 +108,6 @@ public class GameController {
     
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
-       // boardGrid.getChildren().clear(); 
         boardGrid.getChildren().removeIf(node -> node instanceof ImageView);
         
         // Optional: If you call this method every turn, you might want to clear 
