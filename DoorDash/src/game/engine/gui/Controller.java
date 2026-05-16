@@ -13,8 +13,7 @@ public class Controller extends Application{
 	private View view;
 
 	public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass()
-                .getResource("mainmenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
 		view = new View();
 		
 		Scene mainMenu = new Scene(root,1280,800);
@@ -22,9 +21,8 @@ public class Controller extends Application{
 		primaryStage.setTitle("Door Dash");
 		primaryStage.show();
 	}
-	public static void main (String[]args){
-		launch(args);}
 	
-
-
+	public static void main (String[]args){
+		launch(args);
+	}
 }

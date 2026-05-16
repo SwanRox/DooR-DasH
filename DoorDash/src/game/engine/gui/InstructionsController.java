@@ -15,7 +15,7 @@ public class InstructionsController {
    
     public static void openInstructions() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(InstructionsController.class.getResource("Instructions.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(InstructionsController.class.getResource("/game/engine/gui/Instructions.fxml"));
             Parent root = fxmlLoader.load();
             
             Stage instructionsStage = new Stage();
