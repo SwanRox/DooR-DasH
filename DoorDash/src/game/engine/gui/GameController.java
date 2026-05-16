@@ -1,5 +1,6 @@
 package game.engine.gui;
 
+import game.engine.Constants;
 import game.engine.Game;
 import game.engine.cells.CardCell;
 import game.engine.cells.Cell;
@@ -7,6 +8,9 @@ import game.engine.cells.ContaminationSock;
 import game.engine.cells.ConveyorBelt;
 import game.engine.cells.DoorCell;
 import game.engine.cells.MonsterCell;
+import game.engine.exceptions.InvalidMoveException;
+import game.engine.exceptions.OutOfEnergyException;
+import game.engine.monsters.Monster;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -14,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane; // Make sure to import this!
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+
 import java.util.Random;
 
 public class GameController {
@@ -26,12 +31,35 @@ public class GameController {
 
     private Game gameEngine;
 
+    private String opponentSprite;
+    private String playerSprite;
+    private Monster opponent;
+    private Monster player;
+
     public void setGameEngine(Game gameEngine) {
         this.gameEngine = gameEngine;
+
+        // 2. ASSIGN the values here, because gameEngine actually exists now!
+        this.opponent = gameEngine.getOpponent();
+        this.player = gameEngine.getPlayer();
+        this.opponentSprite = opponent.getName() + ".png";
+        this.playerSprite = player.getName() + ".png";
+
         initializeBoardGraphics();
-        //updateBoardGraphics(); 
     }
 
+	private int[] indexToRowCol(int index) {
+	    int cols = Constants.BOARD_COLS;
+
+	    int row = index / cols;
+	    int col = index % cols;
+
+	    if (row % 2 == 1)
+	        col = cols - 1 - col;
+
+	    return new int[]{row, col};
+	}
+    
     private void initializeBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
         Random random = new Random();
@@ -52,7 +80,7 @@ public class GameController {
                 } else if (currentCell instanceof ContaminationSock) {
                     imageName = "sock.png"; 
                 } else if (currentCell instanceof CardCell) {
-                	imageName = "cardCell.png"; 
+                	imageName = "card.png"; 
                 } else if (currentCell instanceof MonsterCell) {
                 	imageName = currentCell.getName() + ".png";
                 }
@@ -63,12 +91,18 @@ public class GameController {
                     // 2. Pass i (row) and j (column) to the method
                     setSprite(imageName, i, j); 
                 }
+                
+                
             }
         }
+
+        setSprite(opponentSprite, 0, 0 );
+        setSprite(playerSprite, 0, 0 );
     }
     
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
+        boardGrid.getChildren().clear(); 
         
         // Optional: If you call this method every turn, you might want to clear 
         // the grid first so images don't stack on top of each other forever.
@@ -97,7 +131,7 @@ public class GameController {
                 } else if (currentCell instanceof ContaminationSock) {
                     imageName = "sock.png"; 
                 } else if (currentCell instanceof CardCell) {
-                	imageName = "cardCell.png"; 
+                	imageName = "card.png"; 
                 } else if (currentCell instanceof MonsterCell) {
                 	imageName = currentCell.getName() + ".png";
                 }
@@ -110,13 +144,21 @@ public class GameController {
                 }
             }
         }
+        
+        int[] playerIndex = indexToRowCol(player.getPosition());
+        int[] opponentIndex = indexToRowCol(opponent.getPosition());
+        setSprite(playerSprite,playerIndex[0],playerIndex[1]);
+        setSprite(opponentSprite,opponentIndex[0],opponentIndex[1]);
     }
+
 
     // 3. Update method signature to accept row (i) and column (j)
     private String setDoorActive(String doorName){
     	if (doorName.length() == 13){
     		String doorNumber = doorName.charAt(12) + "";
-    		return "dooractive" +  doorNumber;
+    		//for random door sprite
+    		//return "dooractive" +  doorNumber+ ".png";
+    		return "dooractive.png";
     	}
     	return doorName;
     	
@@ -172,4 +214,8 @@ public class GameController {
                 e.printStackTrace();
             }
         }
+    @FXML
+    public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();}
+    public void onRollDice(ActionEvent event) throws InvalidMoveException{gameEngine.playTurn();
+    updateBoardGraphics();}
     }
