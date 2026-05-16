@@ -22,7 +22,7 @@ public class StartScreenController {
     public void onPlayButtonClicked(ActionEvent event) {
         try {
             System.out.println("Play Button was clicked!");
-            Parent boardRoot = FXMLLoader.load(getClass().getResource("game.fxml"));
+            Parent boardRoot = FXMLLoader.load(getClass().getResource("pickside.fxml"));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             double width = stage.getWidth();
