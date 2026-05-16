@@ -13,6 +13,8 @@ import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.Monster;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane; // Make sure to import this!
@@ -24,6 +26,14 @@ import java.util.Random;
 public class GameController {
 
     // 1. Link the GridPane from your FXML to the controller
+    @FXML
+    private ProgressBar playerProgressBar;
+    @FXML
+    private ProgressBar opponentProgressBar;
+    @FXML
+    private Label playerLabel;
+    @FXML
+    private Label opponentLabel;
     @FXML
     private GridPane boardGrid;
     private String[][] spriteGrid = new String[10][10];
@@ -100,9 +110,20 @@ public class GameController {
         setSprite(playerSprite, 0, 0 );
     }
     
+    private void updateEnergyProgress(){
+    	int playerEnergy = player.getEnergy();
+    	int opponentEnergy = opponent.getEnergy();
+    	playerProgressBar.setProgress(playerEnergy/10);
+    	opponentProgressBar.setProgress(playerEnergy/10);
+    	playerLabel.setText(playerEnergy+"");
+    	opponentLabel.setText(opponentEnergy+"");
+    	
+    }
+    
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
         boardGrid.getChildren().clear(); 
+        updateEnergyProgress();
         
         // Optional: If you call this method every turn, you might want to clear 
         // the grid first so images don't stack on top of each other forever.
@@ -214,7 +235,8 @@ public class GameController {
             }
         }
     @FXML
-    public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();}
+    public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();
+    	updateEnergyProgress();}
     public void onRollDice(ActionEvent event) throws InvalidMoveException{gameEngine.playTurn();
     updateBoardGraphics();}
     }
