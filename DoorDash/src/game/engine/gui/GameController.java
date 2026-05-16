@@ -26,8 +26,8 @@ public class GameController {
     // 1. Link the GridPane from your FXML to the controller
     @FXML
     private GridPane boardGrid;
+    private String[][] originalSpriteGrid = new String[10][10];
     private String[][] spriteGrid = new String[10][10];
-    
 
     private Game gameEngine;
 
@@ -71,7 +71,7 @@ public class GameController {
                 Cell currentCell = cellArray[i][j];
 
                 if (currentCell instanceof DoorCell) {
-                    int randomDoor = random.nextInt(1) + 1;
+                    int randomDoor = random.nextInt(1) + 1; //change this number to 8
                 	imageName = "doorinactive"+ randomDoor +".png";
                     if(i==9 && j==0) imageName = "booinactive.png";
      
@@ -89,20 +89,27 @@ public class GameController {
 
                 if (imageName != null) {
                     // 2. Pass i (row) and j (column) to the method
-                    setSprite(imageName, i, j); 
+                    setOriginalSprite(imageName, i, j); 
                 }
                 
                 
             }
         }
-
-        setSprite(opponentSprite, 0, 0 );
-        setSprite(playerSprite, 0, 0 );
+        
+        setOriginalSprite(opponentSprite, 0, 0 );
+        setOriginalSprite(playerSprite, 0, 0 );
+ 
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                spriteGrid[i][j] = originalSpriteGrid[i][j];
+            }
+        }
     }
     
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
-        boardGrid.getChildren().clear(); 
+       // boardGrid.getChildren().clear(); 
+        boardGrid.getChildren().removeIf(node -> node instanceof ImageView);
         
         // Optional: If you call this method every turn, you might want to clear 
         // the grid first so images don't stack on top of each other forever.
@@ -116,13 +123,17 @@ public class GameController {
 
                 if (currentCell instanceof DoorCell) {
                 	if(((DoorCell) currentCell).isActivated())
-                	{
-                		imageName = setDoorActive(getSpriteName(i,j));
-                    	if(i==9 && j==0)imageName = "booactive.png";
+                	{	
+                		System.out.println("Door activated");
+                		if(!((DoorCell) currentCell).isOccupied()){
+                			imageName = setDoorActive(i,j);
+                    		if(i==9 && j==0)imageName = "booactive.png";
+                		}
                 	}
                 	else
                 	{
-                		imageName = getSpriteName(i,j);
+                		System.out.println("Door is inactivate");
+                		imageName = getOriginalSpriteName(i,j);
                     	if(i==9 && j==0)imageName = "booinactive.png";
                 	}
 
@@ -153,18 +164,42 @@ public class GameController {
 
 
     // 3. Update method signature to accept row (i) and column (j)
-    private String setDoorActive(String doorName){
-    	if (doorName.length() == 13){
-    		String doorNumber = doorName.charAt(12) + "";
+    private String setDoorActive(int i, int j){
+    		System.out.println(originalSpriteGrid[i][j]);
+    		String doorNumber = originalSpriteGrid[i][j].charAt(12) + "";
     		doorNumber="1"; //temporary until we add more icons for doors
-    		return "dooractive" +  doorNumber+ ".png";
-    	}
-    	return doorName;
-    	
+    		return "dooractive" +  doorNumber + ".png";
     }
     
-    private String getSpriteName(int i, int j){
-    	return spriteGrid[i][j];
+    private String getOriginalSpriteName(int i, int j){
+    	return originalSpriteGrid[i][j];
+    }
+    
+    private void setOriginalSprite(String imageName, int i, int j) {
+        try {
+            Image image = new Image(getClass().getResourceAsStream("assets/" + imageName));
+            ImageView imageView = new ImageView(image);
+            
+            imageView.setFitWidth(59);
+            imageView.setFitHeight(59);
+            imageView.setPreserveRatio(false);
+            
+            // 1. Center the image perfectly inside the grid cell
+            GridPane.setHalignment(imageView, HPos.CENTER);
+            GridPane.setValignment(imageView, VPos.CENTER);
+            
+            // 2. Flip the row so the board draws right-side up!
+            // Assuming your grid is 10x10, the max row index is 9.
+            int visualRow = 9 - i; 
+            
+            // Add to grid (Column j, Row visualRow)
+            boardGrid.add(imageView, j, visualRow);
+            System.out.println("Original sprite changed to "+ imageName);
+            originalSpriteGrid[i][j] = imageName;
+
+        } catch (NullPointerException e) {
+            System.out.println("Error: Could not load image -> " + imageName);
+        }
     }
     
     private void setSprite(String imageName, int i, int j) {
@@ -215,6 +250,7 @@ public class GameController {
         }
     @FXML
     public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();}
+   
     public void onRollDice(ActionEvent event) throws InvalidMoveException{gameEngine.playTurn();
-    updateBoardGraphics();}
+    	updateBoardGraphics();}
     }
