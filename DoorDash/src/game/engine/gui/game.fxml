@@ -67,7 +67,7 @@
                      </HBox.margin>
                   </StackPane>
       
-                  <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="true" maxHeight="627.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="627.0" prefWidth="600.0" scaleX="1.3" scaleY="1.3">
+                  <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="true" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" scaleX="1.3" scaleY="1.3">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="10.0" />
                         <ColumnConstraints percentWidth="10.0" />
@@ -117,7 +117,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <ImageView fitHeight="196.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true" scaleX="4.0" scaleY="4.0">
+            <ImageView fitHeight="197.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" scaleX="4.0" scaleY="4.0">
                <image>
                   <Image url="@coveyorsandsocks.png" />
                </image>

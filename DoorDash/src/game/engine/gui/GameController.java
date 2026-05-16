@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class GameController {
@@ -187,7 +188,6 @@ public class GameController {
                 	}
                 	else
                 	{
-                		System.out.println("Door is inactivate");
                 		imageName = getOriginalSpriteName(i,j);
                     	if(i==9 && j==0)imageName = "booinactive.png";
                 	}
@@ -214,7 +214,56 @@ public class GameController {
         int[] playerIndex = indexToRowCol(player.getPosition());
         int[] opponentIndex = indexToRowCol(opponent.getPosition());
         setSprite(playerSprite,playerIndex[0],playerIndex[1]);
+        setSprite("playerborder.png",playerIndex[0],playerIndex[1]);
         setSprite(opponentSprite,opponentIndex[0],opponentIndex[1]);
+        setSprite("opponentborder.png",opponentIndex[0],opponentIndex[1]);
+        
+        if (gameEngine.getWinner() != null) {
+            Monster winner = gameEngine.getWinner();
+            
+            // 1. Create a custom popup window
+            javafx.stage.Stage popup = new javafx.stage.Stage();
+            popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+            popup.setTitle("Game Over!");
+
+            // 2. Set up the layout
+            javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
+            layout.setAlignment(javafx.geometry.Pos.CENTER);
+            
+            // 3. Add the winner text
+            javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
+            title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+            
+            javafx.scene.control.Label details = new javafx.scene.control.Label(
+                "Role: " + winner.getOriginalRole() + "\n\n" +
+                "Final Scores:\n" +
+                player.getName() + " Energy: " + player.getEnergy() + "\n" +
+                opponent.getName() + " Energy: " + opponent.getEnergy()
+            );
+            details.setStyle("-fx-font-size: 16px; -fx-alignment: center; -fx-text-alignment: center;");
+            
+            // 4. Add the return button
+            javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
+            returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+            returnBtn.setOnAction(e -> {
+                popup.close(); // Close the popup
+                
+                // Transition the main screen
+                try {
+                    javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
+                    javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
+                    mainStage.setScene(new javafx.scene.Scene(root, 1280, 800));
+                } catch (java.io.IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            
+            // 5. Display the popup
+            layout.getChildren().addAll(title, details, returnBtn);
+            javafx.scene.Scene scene = new javafx.scene.Scene(layout, 400, 300);
+            popup.setScene(scene);
+            popup.showAndWait();
+        }
     }
 
 
