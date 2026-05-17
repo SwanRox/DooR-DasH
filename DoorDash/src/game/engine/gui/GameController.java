@@ -157,10 +157,9 @@ public class GameController {
                 String imageName = null;
                 Cell currentCell = cellArray[i][j];
                 
-
                 if (currentCell instanceof DoorCell) {
                     int randomDoor = random.nextInt(1) + 1; //change this number to 8
-                	imageName = "doorinactive"+ randomDoor +".png";
+                    imageName = "doorinactive"+ randomDoor +".png";
                     if(i==9 && j==0) imageName = "booinactive.png";
      
                 } else if (currentCell instanceof ConveyorBelt) {
@@ -168,28 +167,35 @@ public class GameController {
                 } else if (currentCell instanceof ContaminationSock) {
                     imageName = "sock.png"; 
                 } else if (currentCell instanceof CardCell) {
-                	imageName = "card.png"; 
+                    imageName = "card.png"; 
                 } else if (currentCell instanceof MonsterCell) {
-                	imageName = currentCell.getName() + ".png";
+                    imageName = currentCell.getName() + ".png";
                 }
-                else{imageName = "empty.png";}
+                else { imageName = "empty.png"; }
                 
-
                 if (imageName != null) {
-                    // 2. Pass i (row) and j (column) to the method
                     setOriginalSprite(imageName, i, j); 
                 }
                 
-              
-                
+                // --- ADD THIS BLOCK FOR DOOR ENERGY LABELS ---
+                if (currentCell instanceof DoorCell) {
+                    // Assuming DoorCell has a getEnergy() method returning an int or double
+                    int energyAmount = (int) ((DoorCell) currentCell).getEnergy(); 
+                    Label energyLabel = new Label(energyAmount + "E");
+                    
+                    // Style the label (Using a distinct color like dark red or orange can help it pop)
+                    energyLabel.setStyle("-fx-text-fill: #8b0000; -fx-font-weight: bold; -fx-padding: 2px; -fx-font-size: 11px;");
+                    
+                    // Force it to the Bottom-Right of the cell
+                    GridPane.setHalignment(energyLabel, HPos.RIGHT);
+                    GridPane.setValignment(energyLabel, VPos.BOTTOM);
+                    
+                    int visualRow = 9 - i;
+                    boardGrid.add(energyLabel, j, visualRow);
+                }
+                // ----------------------------------------------
             }
         }
-        
-        
-        
-        
-        
-        
         setOriginalSprite(opponentSprite, 0, 0 );
         setOriginalSprite(playerSprite, 0, 0 );
  
@@ -309,6 +315,20 @@ public class GameController {
                     // 2. Pass i (row) and j (column) to the method
                     setSprite(imageName, i, j); 
                 }
+             // --- ADD THIS BLOCK HERE TOO TO REDRAW LABELS EVERY TURN ---
+                if (currentCell instanceof DoorCell) {
+                    int energyAmount = (int) ((DoorCell) currentCell).getEnergy(); 
+                    Label energyLabel = new Label(energyAmount + "E");
+                    
+                    energyLabel.setStyle("-fx-text-fill: #8b0000; -fx-font-weight: bold; -fx-padding: 2px; -fx-font-size: 11px;");
+                    
+                    GridPane.setHalignment(energyLabel, HPos.RIGHT);
+                    GridPane.setValignment(energyLabel, VPos.BOTTOM);
+                    
+                    int visualRow = 9 - i;
+                    boardGrid.add(energyLabel, j, visualRow);
+                }
+                // -----------------------------------------------------------
             }
         }
         
