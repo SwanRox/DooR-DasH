@@ -137,7 +137,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="72.0" prefWidth="1280.0" scaleX="2.0" scaleY="2.0" spacing="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#onRollDice" scaleX="0.6" scaleY="0.6" text="Roll Dice" />
+            <Button mnemonicParsing="false" onAction="#onRollDice" scaleX="0.6" scaleY="0.6" text="Play Turn" />
             <Button layoutX="598.0" layoutY="48.0" mnemonicParsing="false" onAction="#onPowerup" scaleX="0.6" scaleY="0.6" text="Use Powerup" />
          </children>
          <BorderPane.margin>
