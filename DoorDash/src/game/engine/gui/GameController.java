@@ -2,6 +2,7 @@ package game.engine.gui;
 
 import game.engine.Constants;
 import game.engine.Game;
+import game.engine.cards.Card;
 import game.engine.cells.CardCell;
 import game.engine.cells.Cell;
 import game.engine.cells.ContaminationSock;
@@ -55,7 +56,7 @@ public class GameController {
     private Monster player;
     private String playerType;
     private String opponentType;
-
+    
     public void setGameEngine(Game gameEngine) {
         this.gameEngine = gameEngine;
 
@@ -98,6 +99,29 @@ public class GameController {
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
         javafx.scene.control.Label title = new javafx.scene.control.Label("Invalid action: " + message);
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        
+        javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
+        returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+        returnBtn.setOnAction(e -> {
+            popup.close(); // Close the popup
+        });
+        
+        layout.getChildren().addAll(title, returnBtn);
+        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
+        popup.setScene(scene);
+        popup.showAndWait();
+	}
+	
+	private void displayCard(Card card){
+		javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+        popup.setTitle(card.getName());
+
+        javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
+        layout.setAlignment(javafx.geometry.Pos.CENTER);
+        
+        javafx.scene.control.Label title = new javafx.scene.control.Label("Card action: " + card.getDescription());
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
@@ -290,16 +314,20 @@ public class GameController {
         
         int[] playerIndex = indexToRowCol(player.getPosition());
         int[] opponentIndex = indexToRowCol(opponent.getPosition());
+        
         setSprite(playerSprite,playerIndex[0],playerIndex[1]);
         setSprite("playerborder.png",playerIndex[0],playerIndex[1]);
-        if (player.isShielded())setSprite("shielded.png",playerIndex[0],playerIndex[1]);
-        if (player.isFrozen())setSprite("frozen.png",playerIndex[0],playerIndex[1]);
-        if (player.isConfused())setSprite("confused.png",playerIndex[0],playerIndex[1]);
+        
+        if (player.isShielded())setSprite("shielded2.png",playerIndex[0],playerIndex[1]);
+        if (player.isFrozen())setSprite("frozen2.png",playerIndex[0],playerIndex[1]);
+        if (player.isConfused())setSprite("confused2.png",playerIndex[0],playerIndex[1]);
+        
         setSprite(opponentSprite,opponentIndex[0],opponentIndex[1]);
         setSprite("opponentborder.png",opponentIndex[0],opponentIndex[1]);
-        if (opponent.isShielded())setSprite("shielded.png",opponentIndex[0],opponentIndex[1]);
-        if (opponent.isFrozen())setSprite("frozen.png",opponentIndex[0],opponentIndex[1]);
-        if (opponent.isConfused())setSprite("confused.png",opponentIndex[0],opponentIndex[1]);
+        
+        if (opponent.isShielded())setSprite("shielded2.png",opponentIndex[0],opponentIndex[1]);
+        if (opponent.isFrozen())setSprite("frozen2.png",opponentIndex[0],opponentIndex[1]);
+        if (opponent.isConfused())setSprite("confused2.png",opponentIndex[0],opponentIndex[1]);
         
         if (gameEngine.getWinner() != null) {
             Monster winner = gameEngine.getWinner();
@@ -450,13 +478,25 @@ public class GameController {
     	}
     }
    
-    public void onRollDice(ActionEvent event) throws InvalidMoveException{
-    	try{
-    		gameEngine.playTurn();
-    		updateBoardGraphics();
-    	}
-    	catch(InvalidMoveException e){
-    		invalidActionPopup(e.getMessage());
-    	}
-	}
+    @FXML
+    public void onRollDice(ActionEvent event) throws InvalidMoveException {
+        try {
+            gameEngine.playTurn();
+            updateBoardGraphics();
+
+            // 1. Check if a card was drawn during the move execution
+            Card drawnCard = gameEngine.getBoard().getLastDrawnCard(); // Or gameEngine.getLastDrawnCard();
+            
+            if (drawnCard != null) {
+                // 2. Open up your popup displaying the card information
+                displayCard(drawnCard);
+                
+                // 3. Reset the tracker so it doesn't pop up again on normal spaces
+                gameEngine.getBoard().clearLastDrawnCard(); // Or gameEngine.clearLastDrawnCard();
+            }
+        }
+        catch(InvalidMoveException e) {
+            invalidActionPopup(e.getMessage());
+        }
+    }
 }

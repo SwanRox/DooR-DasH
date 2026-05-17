@@ -12,7 +12,8 @@ public class Board {
 	private Cell[][] boardCells;
 	private static ArrayList<Monster> stationedMonsters; 
 	private static ArrayList<Card> originalCards;
-	public static ArrayList<Card> cards;
+	private static ArrayList<Card> cards;
+	private static Card lastDrawnCard = null;
 	
 	public Board(ArrayList<Card> readCards) {
 		this.boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
@@ -117,13 +118,23 @@ public class Board {
 		Collections.shuffle(cards);
     }
 	
+	public static Card getLastDrawnCard() {
+        return lastDrawnCard;
+    }
+	
+	public static void clearLastDrawnCard() {
+        lastDrawnCard = null;
+    }
+	
 	public static Card drawCard() {
-		if (cards.isEmpty()) 
-			reloadCards();
-		
-		return cards.remove(0);
-	}
-
+        if (cards.isEmpty()) 
+            reloadCards();
+        
+        // --- UPDATE THIS METHOD TO STORE THE CARD ---
+        Card drawn = cards.remove(0);
+        lastDrawnCard = drawn; 
+        return drawn;
+    }
 	public void moveMonster(Monster currentMonster, int roll, Monster opponentMonster) throws InvalidMoveException {
 	    Role oldRole = currentMonster.getRole();
 	    int oldPosition = currentMonster.getPosition();
