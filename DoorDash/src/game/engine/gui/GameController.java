@@ -10,7 +10,7 @@ import game.engine.cells.DoorCell;
 import game.engine.cells.MonsterCell;
 import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
-import game.engine.monsters.Monster;
+import game.engine.monsters.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,6 +53,8 @@ public class GameController {
     private String playerSprite;
     private Monster opponent;
     private Monster player;
+    private String playerType;
+    private String opponentType;
 
     public void setGameEngine(Game gameEngine) {
         this.gameEngine = gameEngine;
@@ -62,6 +64,15 @@ public class GameController {
         this.player = gameEngine.getPlayer();
         this.opponentSprite = opponent.getName() + ".png";
         this.playerSprite = player.getName() + ".png";
+        
+        if(player instanceof Dasher) playerType = "Dasher";
+        else if(player instanceof Dynamo) playerType = "Dynamo";
+        else if(player instanceof MultiTasker) playerType = "MultiTasker";
+        else if(player instanceof Schemer) playerType = "Schemer";
+        if(opponent instanceof Dasher) opponentType = "Dasher";
+        else if(opponent instanceof Dynamo) opponentType = "Dynamo";
+        else if(opponent instanceof MultiTasker) opponentType = "MultiTasker";
+        else if(opponent instanceof Schemer) opponentType = "Schemer";
 
         initializeBoardGraphics();
     }
@@ -207,7 +218,7 @@ public class GameController {
     			"Name: " + player.getName() + "\n"
     			+"Original Role: " + player.getOriginalRole() + "\n"
     			+"Current Role: " + player.getRole() + "\n"
-    			+"Type: " + "\n"
+    			+"Type: " + playerType + "\n"
     			+"Energy: " + player.getEnergy() + "\n"
     			+"Position: " + player.getPosition() + "\n"
     			+"Shield: " + player.isShielded() + "\n"
@@ -218,7 +229,7 @@ public class GameController {
     			"Name: " + opponent.getName() + "\n"
     			+"Original Role: " + opponent.getOriginalRole() + "\n"
     			+"Current Role: " + opponent.getRole() + "\n"
-    			+"Type: " + "\n"
+    			+"Type: " + opponentType + "\n"
     			+"Energy: " + opponent.getEnergy() + "\n"
     			+"Position: " + opponent.getPosition() + "\n"
     			+"Shield: " + opponent.isShielded() + "\n"
@@ -281,8 +292,14 @@ public class GameController {
         int[] opponentIndex = indexToRowCol(opponent.getPosition());
         setSprite(playerSprite,playerIndex[0],playerIndex[1]);
         setSprite("playerborder.png",playerIndex[0],playerIndex[1]);
+        if (player.isShielded())setSprite("shielded.png",playerIndex[0],playerIndex[1]);
+        if (player.isFrozen())setSprite("frozen.png",playerIndex[0],playerIndex[1]);
+        if (player.isConfused())setSprite("confused.png",playerIndex[0],playerIndex[1]);
         setSprite(opponentSprite,opponentIndex[0],opponentIndex[1]);
         setSprite("opponentborder.png",opponentIndex[0],opponentIndex[1]);
+        if (opponent.isShielded())setSprite("shielded.png",opponentIndex[0],opponentIndex[1]);
+        if (opponent.isFrozen())setSprite("frozen.png",opponentIndex[0],opponentIndex[1]);
+        if (opponent.isConfused())setSprite("confused.png",opponentIndex[0],opponentIndex[1]);
         
         if (gameEngine.getWinner() != null) {
             Monster winner = gameEngine.getWinner();
