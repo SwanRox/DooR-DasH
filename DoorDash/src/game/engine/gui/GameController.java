@@ -243,9 +243,13 @@ public class GameController {
     }
     
     private void updateGameInfo(){
-    	gameInfo.setText(gameEngine.getCurrent().getOriginalRole() + "'s turn!");
+        String upNextSide = (gameEngine.getCurrent() == player) ? "(PLAYER)" : "(OPPONENT)";
+        
+    	gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
+                         "Up Next: " + upNextSide + " " + gameEngine.getCurrent().getOriginalRole() + "'s turn!");
+                         
     	playerStats.setText(
-    			"Name: " + player.getName() + "\n"
+    			"Name: " + player.getName() + " (PLAYER)\n" 
     			+"Original Role: " + player.getOriginalRole() + "\n"
     			+"Current Role: " + player.getRole() + "\n"
     			+"Type: " + playerType + "\n"
@@ -255,8 +259,9 @@ public class GameController {
     			+"Confused: " + player.isConfused() + "\n"
     			+"Frozen: " + player.isFrozen() + "\n"
     			);
+    			
     	opponentStats.setText(
-    			"Name: " + opponent.getName() + "\n"
+    			"Name: " + opponent.getName() + " (OPPONENT)\n"
     			+"Original Role: " + opponent.getOriginalRole() + "\n"
     			+"Current Role: " + opponent.getRole() + "\n"
     			+"Type: " + opponentType + "\n"
