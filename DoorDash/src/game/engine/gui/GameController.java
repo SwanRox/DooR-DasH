@@ -29,6 +29,8 @@ public class GameController {
 
     // 1. Link the GridPane from your FXML to the controller
 	@FXML
+    private Text gameInfo;
+	@FXML
     private Text playerStats;
 	@FXML
     private Text opponentStats;
@@ -74,6 +76,29 @@ public class GameController {
 	        col = cols - 1 - col;
 
 	    return new int[]{row, col};
+	}
+	
+	private void invalidActionPopup(String message){
+		javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+        popup.setTitle("Invalid action!");
+
+        javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
+        layout.setAlignment(javafx.geometry.Pos.CENTER);
+        
+        javafx.scene.control.Label title = new javafx.scene.control.Label("Invalid action: " + message);
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        
+        javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
+        returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+        returnBtn.setOnAction(e -> {
+            popup.close(); // Close the popup
+        });
+        
+        layout.getChildren().addAll(title, returnBtn);
+        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
+        popup.setScene(scene);
+        popup.showAndWait();
 	}
 	
 	private int rowColToIndex(int i, int j) {
@@ -162,7 +187,7 @@ public class GameController {
                 Label indexLabel = new Label(String.valueOf(cellNumber));
                 
                 // Changed from white to black right here!
-                indexLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 2px;");
+                indexLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 2px; -fx-font-size: 13px;");
                 
                 // Force it to the Top-Left of the cell
                 GridPane.setHalignment(indexLabel, HPos.LEFT);
@@ -177,6 +202,7 @@ public class GameController {
     }
     
     private void updateGameInfo(){
+    	gameInfo.setText(gameEngine.getCurrent().getOriginalRole() + "'s turn!");
     	playerStats.setText(
     			"Name: " + player.getName() + "\n"
     			+"Original Role: " + player.getOriginalRole() + "\n"
@@ -397,9 +423,23 @@ public class GameController {
             }
         }
     @FXML
-    public void onPowerup(ActionEvent event) throws OutOfEnergyException{gameEngine.usePowerup();
-    updateBoardGraphics();}
-   
-    public void onRollDice(ActionEvent event) throws InvalidMoveException{gameEngine.playTurn();
-    	updateBoardGraphics();}
+    public void onPowerup(ActionEvent event) throws OutOfEnergyException{
+    	try{
+    		gameEngine.usePowerup();
+    		updateBoardGraphics();
+    	}
+    	catch(OutOfEnergyException e){
+    		invalidActionPopup(e.getMessage());
+    	}
     }
+   
+    public void onRollDice(ActionEvent event) throws InvalidMoveException{
+    	try{
+    		gameEngine.playTurn();
+    		updateBoardGraphics();
+    	}
+    	catch(InvalidMoveException e){
+    		invalidActionPopup(e.getMessage());
+    	}
+	}
+}

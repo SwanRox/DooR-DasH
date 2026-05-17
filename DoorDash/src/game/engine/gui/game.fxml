@@ -122,6 +122,15 @@
                   <Image url="@coveyorsandsocks.png" />
                </image>
             </ImageView>
+            <StackPane prefHeight="785.0" prefWidth="1672.0">
+               <children>
+                  <Text fx:id="gameInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" translateY="-450.0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
          </children>
       </StackPane>
    </center>
@@ -140,18 +149,18 @@
       </HBox>
    </bottom>
    <left>
-      <Text fx:id="playerStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+      <Text fx:id="playerStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="50.0" />
          </BorderPane.margin>
          <font>
-            <Font size="29.0" />
+            <Font size="40.0" />
          </font></Text>
    </left>
    <right>
-      <Text fx:id="opponentStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" BorderPane.alignment="CENTER">
+      <Text fx:id="opponentStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
-            <Font size="29.0" />
+            <Font size="40.0" />
          </font>
          <BorderPane.margin>
             <Insets right="50.0" />
