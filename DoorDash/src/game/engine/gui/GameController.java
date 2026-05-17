@@ -75,6 +75,16 @@ public class GameController {
 
 	    return new int[]{row, col};
 	}
+	
+	private int rowColToIndex(int i, int j) {
+        // If it is an odd row (1, 3, 5...), the board goes right-to-left
+        if (i % 2 == 1) {
+            return (i * 10) + (9 - j);
+        } else {
+            // Even rows go left-to-right
+            return (i * 10) + j;
+        }
+    }
     
     private void initializeBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
@@ -86,6 +96,7 @@ public class GameController {
                 
                 String imageName = null;
                 Cell currentCell = cellArray[i][j];
+                
 
                 if (currentCell instanceof DoorCell) {
                     int randomDoor = random.nextInt(1) + 1; //change this number to 8
@@ -109,9 +120,15 @@ public class GameController {
                     setOriginalSprite(imageName, i, j); 
                 }
                 
+              
                 
             }
         }
+        
+        
+        
+        
+        
         
         setOriginalSprite(opponentSprite, 0, 0 );
         setOriginalSprite(playerSprite, 0, 0 );
@@ -124,6 +141,8 @@ public class GameController {
 
         setSprite(opponentSprite, 0, 0 );
         setSprite(playerSprite, 0, 0 );
+        
+        drawCellIndices();
     }
     
     private void updateEnergyProgress(){
@@ -134,6 +153,27 @@ public class GameController {
     	playerLabel.setText((int)playerEnergy+"");
     	opponentLabel.setText((int)opponentEnergy+"");
     	
+    }
+    
+    private void drawCellIndices() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                int cellNumber = rowColToIndex(i, j);
+                Label indexLabel = new Label(String.valueOf(cellNumber));
+                
+                // Changed from white to black right here!
+                indexLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 2px;");
+                
+                // Force it to the Top-Left of the cell
+                GridPane.setHalignment(indexLabel, HPos.LEFT);
+                GridPane.setValignment(indexLabel, VPos.TOP);
+                
+                // Flip the row so 0 is at the bottom of the screen!
+                int visualRow = 9 - i;
+                
+                boardGrid.add(indexLabel, j, visualRow);
+            }
+        }
     }
     
     private void updateGameInfo(){
@@ -163,7 +203,7 @@ public class GameController {
     
     private void updateBoardGraphics() {
         Cell[][] cellArray = gameEngine.getBoard().getBoardCells();
-        boardGrid.getChildren().removeIf(node -> node instanceof ImageView);
+        boardGrid.getChildren().removeIf(node -> node instanceof ImageView || node instanceof Label);
         updateEnergyProgress();
         updateGameInfo();
         
@@ -264,6 +304,10 @@ public class GameController {
             popup.setScene(scene);
             popup.showAndWait();
         }
+        
+        
+        
+        drawCellIndices();
     }
 
 
