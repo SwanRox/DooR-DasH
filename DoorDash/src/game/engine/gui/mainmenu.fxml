@@ -79,6 +79,11 @@
                      <font>
                         <Font name="Berlin Sans FB" size="36.0" />
                      </font></Button>
+                  <Button mnemonicParsing="false" onAction="#onSettingsButtonClicked" prefHeight="40.0" prefWidth="334.0" style="-fx-background-radius: 100px;" text="Settings" textAlignment="CENTER">
+                     <font>
+                        <Font name="Berlin Sans FB" size="36.0" />
+                     </font>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#onInstructionsButtonClicked" prefHeight="40.0" prefWidth="334.0" style="-fx-background-radius: 100px;" text="Instructions" textAlignment="CENTER">
                      <font>
                         <Font name="Berlin Sans FB" size="36.0" />

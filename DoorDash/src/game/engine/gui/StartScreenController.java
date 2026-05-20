@@ -22,6 +22,11 @@ public class StartScreenController {
     }
 
     @FXML
+    public void onSettingsButtonClicked(){
+    	SettingsController.openSettings();
+    }
+    
+    @FXML
     public void onPlayButtonClicked(ActionEvent event) {
         try {
             System.out.println("Play Button was clicked!");
