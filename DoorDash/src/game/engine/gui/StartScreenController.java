@@ -7,12 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class StartScreenController {
-
+	
     @FXML
     public void onExitButton(ActionEvent event){
         Platform.exit();
@@ -39,7 +42,7 @@ public class StartScreenController {
             stage.setY(y);
             
             stage.show();
-
+            Controller.sounds.playPickMusic();
         } catch (IOException e) {
             e.printStackTrace();
         }

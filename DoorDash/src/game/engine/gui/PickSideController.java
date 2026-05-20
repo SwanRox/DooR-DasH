@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import game.engine.Game;
 import game.engine.Role;
@@ -72,6 +74,7 @@ public class PickSideController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(boardRoot));
             stage.show();
+            Controller.sounds.playGameMusic();
 
         } catch (Exception e) {
             e.printStackTrace();

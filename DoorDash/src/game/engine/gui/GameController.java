@@ -396,6 +396,7 @@ public class GameController {
                     javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
                     javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
                     mainStage.setScene(new javafx.scene.Scene(root, 1280, 800));
+                    Controller.sounds.playPickMusic();
                 } catch (java.io.IOException ex) {
                     ex.printStackTrace();
                 }
@@ -495,6 +496,7 @@ public class GameController {
                 javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new javafx.scene.Scene(root, 1280, 800));
                 stage.show();
+                Controller.sounds.playMenuMusic();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
             }

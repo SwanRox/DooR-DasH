@@ -1,13 +1,19 @@
 package game.engine.gui;
 
+import java.io.File;
+
 import javafx.application.*;
 import javafx.scene.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.*;
+import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 
 public class Controller extends Application{
 
 	private View view;
+	public static SoundController sounds = new SoundController();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -19,7 +25,11 @@ public class Controller extends Application{
 		primaryStage.setTitle("Door Dash");
 		primaryStage.show();
 		primaryStage.setMaximized(true);
+		sounds.playMenuMusic();
+		
 	}
+	
+
 	
 	public static void main (String[]args){
 		launch(args);
