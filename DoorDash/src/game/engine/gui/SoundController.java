@@ -14,6 +14,8 @@ public class SoundController {
 	private MediaPlayer mediaPlayer = new MediaPlayer(menumusic);
 	
 	public void playMenuMusic(){
+		mediaPlayer.stop();
+		mediaPlayer = new MediaPlayer(menumusic);
 		mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 		mediaPlayer.play();
 	}

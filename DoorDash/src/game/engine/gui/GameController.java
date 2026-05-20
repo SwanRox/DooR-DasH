@@ -396,7 +396,7 @@ public class GameController {
                     javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
                     javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
                     mainStage.setScene(new javafx.scene.Scene(root, 1280, 800));
-                    Controller.sounds.playPickMusic();
+                    Controller.sounds.playMenuMusic();
                 } catch (java.io.IOException ex) {
                     ex.printStackTrace();
                 }
