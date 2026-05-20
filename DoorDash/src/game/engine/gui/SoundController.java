@@ -12,7 +12,7 @@ public class SoundController {
 	private Media gamemusic = new Media(this.getClass().getResource("gamemusic.mp3").toExternalForm());
 
 	private MediaPlayer mediaPlayer = new MediaPlayer(menumusic);
-	private double volume = 100;
+	private double volume = 50;
 	
 	public void playMenuMusic(){
 		mediaPlayer.stop();

@@ -36,7 +36,7 @@
                               <Font name="Berlin Sans FB" size="27.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="volumeslider" prefHeight="14.0" prefWidth="200.0" value="100.0" />
+                        <Slider fx:id="volumeslider" prefHeight="14.0" prefWidth="200.0" value="50.0" />
                         <Button fx:id="setvolumebutton" mnemonicParsing="false" onAction="#onSetVolumeButton" prefHeight="25.0" prefWidth="81.0" text="Set" />
                      </children>
                   </HBox>
