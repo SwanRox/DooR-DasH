@@ -1,10 +1,7 @@
 package game.engine.gui;
 
-import game.engine.Game;
 import javafx.application.*;
 import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.fxml.FXMLLoader;
 
@@ -12,6 +9,7 @@ public class Controller extends Application{
 
 	private View view;
 
+	@Override
 	public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
 		view = new View();

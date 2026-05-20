@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane; // Make sure to import this!
@@ -248,6 +249,12 @@ public class GameController {
     	gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
                          "Up Next: " + upNextSide + " " + gameEngine.getCurrent().getOriginalRole() + "'s turn!");
                          
+    	String playerConfused = (!player.isConfused())?"":"Player is confused for " + player.getConfusionTurns() + " more turns";
+    	String opponentConfused = (!opponent.isConfused())?"":"Opponent is confused for " + player.getConfusionTurns() + " more turns";
+    	String playerFrozen = (!player.isFrozen())?"":"Player is frozen!";
+    	String opponentFrozen = (!opponent.isFrozen())?"":"Opponent is frozen!";
+    	String playerShielded = (!player.isShielded())?"":"Player is shielded!";
+    	String opponentShielded = (!opponent.isShielded())?"":"Opponent is shielded!";
     	playerStats.setText(
     			"Name: " + player.getName() + " (PLAYER)\n" 
     			+"Original Role: " + player.getOriginalRole() + "\n"
@@ -255,9 +262,9 @@ public class GameController {
     			+"Type: " + playerType + "\n"
     			+"Energy: " + player.getEnergy() + "\n"
     			+"Position: " + player.getPosition() + "\n"
-    			+"Shield: " + player.isShielded() + "\n"
-    			+"Confused: " + player.isConfused() + "\n"
-    			+"Frozen: " + player.isFrozen() + "\n"
+    			+playerShielded + "\n"
+    			+playerConfused + "\n"
+    			+playerFrozen + "\n"
     			);
     			
     	opponentStats.setText(
@@ -267,9 +274,9 @@ public class GameController {
     			+"Type: " + opponentType + "\n"
     			+"Energy: " + opponent.getEnergy() + "\n"
     			+"Position: " + opponent.getPosition() + "\n"
-    			+"Shield: " + opponent.isShielded() + "\n"
-    			+"Confused: " + opponent.isConfused() + "\n"
-    			+"Frozen: " + opponent.isFrozen() + "\n"
+    			+opponentShielded + "\n"
+    			+opponentConfused + "\n"
+    			+opponentFrozen + "\n"
     			);
     }
     

@@ -19,7 +19,7 @@ public class InstructionsController {
             Parent root = fxmlLoader.load();
             
             Stage instructionsStage = new Stage();
-            instructionsStage.setTitle("How to Play - DooR DasH");
+            instructionsStage.setTitle("How to Play");
             
             // APPLICATION_MODAL prevents clicking outside the pop-up
             instructionsStage.initModality(Modality.APPLICATION_MODAL); 

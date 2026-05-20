@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,22 +15,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.GameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #48505B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.GameController">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
          <children>
-            <Button mnemonicParsing="false" onAction="#onReturnButtonClicked" text="Return To Main Menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button mnemonicParsing="false" onAction="#onReturnButtonClicked" style="-fx-background-radius: 100px;" text="Return To Main Menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
-                  <Font size="21.0" />
+                  <Font name="Berlin Sans FB" size="40.0" />
                </font>
             </Button>
-            <Button minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50em; -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 28px;" text="?" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50em; -fx-background-color: #3589FF;" text="i" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Serif Bold" size="36.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="How to play" />
+               </tooltip></Button>
          </children>
       </AnchorPane>
    </top>
@@ -58,7 +66,7 @@
                         </ImageView>
                         <Label fx:id="playerLabel" alignment="CENTER" text="Energy" translateY="220.0">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Berlin Sans FB" size="22.0" />
                            </font>
                         </Label>
                      </children>
@@ -107,7 +115,7 @@
                         </ImageView>
                         <Label fx:id="opponentLabel" alignment="CENTER" text="Energy" translateY="220.0">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Berlin Sans FB" size="22.0" />
                            </font>
                         </Label>
                      </children>
@@ -124,9 +132,9 @@
             </ImageView>
             <StackPane prefHeight="785.0" prefWidth="1672.0">
                <children>
-                  <Text fx:id="gameInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" translateY="-450.0">
+                  <Text fx:id="gameInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" translateY="-450.0">
                      <font>
-                        <Font size="36.0" />
+                        <Font name="Berlin Sans FB Demi Bold" size="36.0" />
                      </font>
                   </Text>
                </children>
@@ -134,36 +142,45 @@
          </children>
       </StackPane>
    </center>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="72.0" prefWidth="1280.0" scaleX="2.0" scaleY="2.0" spacing="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#onRollDice" scaleX="0.6" scaleY="0.6" text="Play Turn" />
-            <Button layoutX="598.0" layoutY="48.0" mnemonicParsing="false" onAction="#onPowerup" scaleX="0.6" scaleY="0.6" text="Use Powerup" />
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="100.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets top="50.0" />
-         </padding>
-      </HBox>
-   </bottom>
    <left>
-      <Text fx:id="playerStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+      <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="50.0" />
          </BorderPane.margin>
          <font>
-            <Font size="29.0" />
+            <Font name="Berlin Sans FB" size="29.0" />
          </font></Text>
    </left>
    <right>
-      <Text fx:id="opponentStats" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" BorderPane.alignment="CENTER">
+      <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" BorderPane.alignment="CENTER">
          <font>
-            <Font size="29.0" />
+            <Font name="Berlin Sans FB" size="29.0" />
          </font>
          <BorderPane.margin>
             <Insets right="50.0" />
          </BorderPane.margin></Text>
    </right>
+   <bottom>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-radius: 100px;" text="Play Turn">
+                     <font>
+                        <Font name="Berlin Sans FB" size="45.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPowerup" style="-fx-background-radius: 100px;" text="Use Powerup" textAlignment="CENTER">
+                     <font>
+                        <Font name="Berlin Sans FB" size="45.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="40.0" />
+         </BorderPane.margin>
+      </StackPane>
+   </bottom>
 </BorderPane>
