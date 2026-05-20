@@ -159,8 +159,8 @@ public class GameController {
                 Cell currentCell = cellArray[i][j];
                 
                 if (currentCell instanceof DoorCell) {
-                    int randomDoor = random.nextInt(1) + 1; //change this number to 8
-                    imageName = "doorinactive"+ randomDoor +".png";
+                    int randomDoor = random.nextInt(10); //change this number to 8
+                    imageName = "door"+ randomDoor +"inactive.png";
                     if(i==9 && j==0) imageName = "booinactive.png";
      
                 } else if (currentCell instanceof ConveyorBelt) {
@@ -418,9 +418,8 @@ public class GameController {
     // 3. Update method signature to accept row (i) and column (j)
     private String setDoorActive(int i, int j){
     		System.out.println(originalSpriteGrid[i][j]);
-    		String doorNumber = originalSpriteGrid[i][j].charAt(12) + "";
-    		doorNumber="1"; //temporary until we add more icons for doors
-    		return "dooractive" +  doorNumber + ".png";
+    		String doorNumber = originalSpriteGrid[i][j].charAt(4) + "";
+    		return "door" +  doorNumber + "active.png";
     }
     
     private String getOriginalSpriteName(int i, int j){
