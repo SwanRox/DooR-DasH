@@ -143,22 +143,24 @@
       </StackPane>
    </center>
    <left>
-      <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" BorderPane.alignment="CENTER">
+      <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="280.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets left="50.0" />
+            <Insets left="40.0" />
          </BorderPane.margin>
          <font>
-            <Font name="Berlin Sans FB" size="29.0" />
-         </font></Text>
+            <Font name="Berlin Sans FB" size="24.0" />
+         </font>
+      </Text>
    </left>
    <right>
-      <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" BorderPane.alignment="CENTER">
+      <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" wrappingWidth="280.0" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Berlin Sans FB" size="29.0" />
+            <Font name="Berlin Sans FB" size="24.0" />
          </font>
          <BorderPane.margin>
-            <Insets right="50.0" />
-         </BorderPane.margin></Text>
+            <Insets right="40.0" />
+         </BorderPane.margin>
+      </Text>
    </right>
    <bottom>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
