@@ -16,7 +16,11 @@ public class Game {
 	private Monster player;
 	private Monster opponent;
 	private Monster current;
-	
+	private String lastAction = "Game Started! Roll to begin.";
+
+	public String getLastAction() {
+		return lastAction;
+	}
 	public Game(Role playerRole) throws IOException {
 		this.board = new Board(DataLoader.readCards());
 		
@@ -78,19 +82,26 @@ public class Game {
 		if (current.getEnergy() < Constants.POWERUP_COST)
 			throw new OutOfEnergyException("Not enough energy to use powerup");
 		
+		String activeSide = (current == player) ? "(PLAYER) " : "(OPPONENT) ";
+		lastAction = activeSide + current.getName() + " used a Powerup!"; 
+		
 		current.executePowerupEffect(getCurrentOpponent());
 		current.setEnergy(current.getEnergy() - Constants.POWERUP_COST);
 	}
 	
 	public void playTurn() throws InvalidMoveException {
+		String activeSide = (current == player) ? "(PLAYER) " : "(OPPONENT) ";
+		
 		if (current.isFrozen()) {
 			System.out.println(current.getName() + " is frozen! Turn skipped.");
+			lastAction = activeSide + current.getName() + " is frozen! Turn skipped."; 
 			current.setFrozen(false);
 			switchTurn();
 			return;
 		}
 		
 		int roll = rollDice();
+		lastAction = activeSide + current.getName() + " rolled a " + roll + "!";
 		
 		board.moveMonster(current, roll, getCurrentOpponent());
 		

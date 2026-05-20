@@ -33,51 +33,100 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.PickSideController">
+<StackPane fx:id="mainStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.PickSideController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <ImageView fx:id="picksidebackground" fitHeight="${mainStackPane.height}" fitWidth="${mainStackPane.width}" mouseTransparent="true" pickOnBounds="true" preserveRatio="false">
+         <image>
+            <Image url="@pickside.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="749.0" prefWidth="1242.0">
          <children>
             <StackPane prefHeight="222.0" prefWidth="1280.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Choose your role">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Pick Your Side" textFill="WHITE">
                      <font>
-                        <Font size="31.0" />
+                        <Font name="Berlin Sans FB" size="72.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="300.0" />
+                     </padding>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
                   </Label>
                </children>
             </StackPane>
             <HBox alignment="CENTER" prefHeight="181.0" prefWidth="1280.0">
                <children>
-                  <BorderPane prefHeight="288.0" prefWidth="738.0">
-                     <center>
-                        <Label text="VS" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                     </center>
+                  <BorderPane prefHeight="181.0" prefWidth="1384.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="100.0" />
+                     </padding>
                      <left>
-                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="200.0" minWidth="200.0" text="Scarer" textFill="#e63535" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="50.0" />
-                           </font>
-                        </Label>
+                        <VBox prefHeight="62.0" prefWidth="275.0" spacing="30.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <Button blendMode="ADD" mnemonicParsing="false" onAction="#onScarerSelected" onMouseEntered="#onScarerEntered" onMouseExited="#onScarerExited" prefWidth="234.0" style="-fx-background-radius: 100px;" text="Scarer">
+                                       <font>
+                                          <Font name="Berlin Sans FB" size="33.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="scarericon" blendMode="ADD" fitHeight="150.0" fitWidth="234.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamscarer.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </VBox>
                      </left>
                      <right>
-                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="200.0" minWidth="200.0" text="Laugher" textFill="#3235e2" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="50.0" />
-                           </font>
-                        </Label>
+                        <VBox alignment="TOP_RIGHT" prefHeight="239.0" prefWidth="266.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <Button blendMode="ADD" mnemonicParsing="false" onAction="#onLaugherSelected" onMouseEntered="#onLaugherEntered" onMouseExited="#onLaugherExited" prefWidth="234.0" style="-fx-background-radius: 100px;" text="Laugher">
+                                       <font>
+                                          <Font name="Berlin Sans FB" size="33.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="laughericon" fitHeight="150.0" fitWidth="200.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamlaugher.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </VBox>
                      </right>
                   </BorderPane>
                </children>
@@ -87,24 +136,13 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="278.0" prefWidth="1280.0">
                <children>
-                  <BorderPane prefHeight="263.0" prefWidth="943.0">
-                     <left>
-                        <Button mnemonicParsing="false" onAction="#onScarerSelected" text="Select" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                     </left>
-                     <right>
-                        <Button mnemonicParsing="false" onAction="#onLaugherSelected" text="Select" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                     </right>
+                  <BorderPane prefHeight="223.0" prefWidth="1238.0">
                      <padding>
                         <Insets left="150.0" right="150.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </BorderPane>
                </children>
             </HBox>
