@@ -137,6 +137,7 @@ public class GameController {
     }
 
     private void applyButtonStyle(javafx.scene.control.Button btn) {
+        // Removed bold weight here
         btn.setStyle("-fx-font-size: 20px; " +
                      "-fx-padding: 10px; " +
                      "-fx-font-family: 'Berlin Sans FB'; " +
@@ -144,6 +145,7 @@ public class GameController {
                      "-fx-background-color: #3589FF; " +
                      "-fx-text-fill: white;");
     }
+    
     private void invalidActionPopup(String message) {
         javafx.stage.Stage popup = new javafx.stage.Stage();
         popup.initStyle(javafx.stage.StageStyle.UNDECORATED); 
@@ -163,7 +165,7 @@ public class GameController {
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
         javafx.scene.control.Label title = new javafx.scene.control.Label("Invalid action: " + message);
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Berlin Sans FB';");
+        title.setStyle("-fx-font-size: 24px; -fx-font-family: 'Berlin Sans FB';");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
         returnBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10px; -fx-font-family: 'Berlin Sans FB'; -fx-background-radius: 100px; -fx-background-color: #3589FF; -fx-text-fill: white;");
@@ -187,7 +189,7 @@ public class GameController {
         applyPopupStyle(layout); // <--- Using the helper!
 
         javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName() + "\nCard action: " + card.getDescription());
-        title.setStyle("-fx-font-size: 24px; -fx-font-family: 'Berlin Sans FB'; -fx-font-weight: bold; -fx-text-alignment: center;");
+        title.setStyle("-fx-font-size: 24px; -fx-font-family: 'Berlin Sans FB';");
 
         
         popup.setTitle(card.getName());
@@ -426,26 +428,19 @@ public class GameController {
             Monster winner = gameEngine.getWinner();
             
             javafx.stage.Stage popup = new javafx.stage.Stage();
-            // 1. UNDECORATED (Removes 'X', minimize, maximize)
+            // 1. STYLE: Undecorated (Removes 'X' and Title Bar)
             popup.initStyle(javafx.stage.StageStyle.UNDECORATED); 
             popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
             if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
                 popup.initOwner(boardGrid.getScene().getWindow()); 
             }
-
             
-
-            popup.setTitle("Game Over!");
-
-
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
-            // 2. CONSISTENT STYLING
-            layout.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #3589FF; -fx-border-width: 5px; -fx-padding: 20px;");
-            layout.setAlignment(javafx.geometry.Pos.CENTER);
+            // 2. STYLING: Consistent helper method
+            applyPopupStyle(layout); 
             
-            // FRIEND'S GAME OVER STYLING
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
-            title.setStyle("-fx-font-size: 33px; -fx-font-family:'Berlin Sans FB'");
+            title.setStyle("-fx-font-size: 33px; -fx-font-family: 'Berlin Sans FB';");
             
             javafx.scene.control.Label details = new javafx.scene.control.Label(
                 "Role: " + winner.getOriginalRole() + "\n\n" +
@@ -453,10 +448,12 @@ public class GameController {
                 player.getName() + " Energy: " + (int)player.getEnergy() + "E\n" +
                 opponent.getName() + " Energy: " + (int)opponent.getEnergy() + "E"
             );
-            details.setStyle("-fx-font-size: 26px; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family:'Cambria'");
+            details.setStyle("-fx-font-size: 26px; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family: 'Cambria';");
             
             javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
-            returnBtn.setStyle("-fx-font-size: 30px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px; -fx-background-color: #3589FF; -fx-text-fill: white;");
+            // 3. STYLING: Consistent helper method
+            applyButtonStyle(returnBtn); 
+            
             returnBtn.setOnAction(e -> {
                 popup.close(); 
                 try {
@@ -470,7 +467,6 @@ public class GameController {
             });
             
             layout.getChildren().addAll(title, details, returnBtn);
-            // FRIEND'S BIGGER SCENE
             javafx.scene.Scene scene = new javafx.scene.Scene(layout, 500, 400);
             popup.setScene(scene);
             popup.showAndWait();
