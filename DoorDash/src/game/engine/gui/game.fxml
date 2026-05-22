@@ -139,7 +139,7 @@
             </Group>
             <HBox alignment="CENTER" spacing="60.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-radius: 100px;" text="Play Turn">
+                  <Button fx:id="playTurnButton" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-radius: 100px;" text="Play Turn">
                      <font>
                         <Font name="Berlin Sans FB" size="45.0" />
                      </font>
@@ -155,14 +155,19 @@
       </VBox>
    </center>
    <left>
-      <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="280.0" BorderPane.alignment="CENTER">
+      <StackPane prefWidth="280.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets left="40.0" />
+            <Insets bottom="30.0" left="40.0" />
          </BorderPane.margin>
-         <font>
-            <Font name="Berlin Sans FB" size="24.0" />
-         </font>
-      </Text>
+         <children>
+            <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="280.0" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="Berlin Sans FB" size="24.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="diceImageView" fitHeight="150.0" fitWidth="150.0" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT" />
+         </children>
+      </StackPane>
    </left>
    <right>
       <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" wrappingWidth="280.0" BorderPane.alignment="CENTER">

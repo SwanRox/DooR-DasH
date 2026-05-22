@@ -12,6 +12,13 @@ import game.engine.cells.MonsterCell;
 import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
+
+// NEW IMPORTS FOR ANIMATION & UI SAFETY
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.control.Button;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -19,7 +26,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane; // Make sure to import this!
+import javafx.scene.layout.GridPane; 
 import javafx.scene.text.Text;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -29,23 +36,28 @@ import java.util.Random;
 
 public class GameController {
 
-    // 1. Link the GridPane from your FXML to the controller
-	@FXML
+    @FXML
     private Text gameInfo;
-	@FXML
+    @FXML
     private Text playerStats;
-	@FXML
+    @FXML
     private Text opponentStats;
-	@FXML
+    @FXML
     private Label playerLabel;
-	@FXML
+    @FXML
     private Label opponentLabel;
-	@FXML
+    @FXML
     private ProgressBar playerProgressBar;
-	@FXML
+    @FXML
     private ProgressBar opponentProgressBar;
     @FXML
     private GridPane boardGrid;
+    
+    // UI HOOKS FOR DICE ANIMATION
+    @FXML
+    private ImageView diceImageView;
+    private Image[] diceFaces = new Image[6];
+
     private String[][] originalSpriteGrid = new String[10][10];
     private String[][] spriteGrid = new String[10][10];
 
@@ -57,11 +69,26 @@ public class GameController {
     private Monster player;
     private String playerType;
     private String opponentType;
+
+    // PRE-LOADS DICE IMAGES SO THE UI DOESN'T LAG LATER
+    @FXML
+    public void initialize() {
+        for (int i = 0; i < 6; i++) {
+            try {
+                String path = "assets/dice" + (i + 1) + ".png"; 
+                diceFaces[i] = new Image(getClass().getResourceAsStream(path));
+            } catch (NullPointerException e) {
+                System.out.println("Error: Could not load dice image -> dice" + (i + 1) + ".png");
+            }
+        }
+        if (diceFaces[0] != null && diceImageView != null) {
+            diceImageView.setImage(diceFaces[0]); // Default face on startup
+        }
+    }
     
     public void setGameEngine(Game gameEngine) {
         this.gameEngine = gameEngine;
 
-        // 2. ASSIGN the values here, because gameEngine actually exists now!
         this.opponent = gameEngine.getOpponent();
         this.player = gameEngine.getPlayer();
         this.opponentSprite = opponent.getName() + ".png";
@@ -79,21 +106,27 @@ public class GameController {
         initializeBoardGraphics();
     }
 
-	private int[] indexToRowCol(int index) {
-	    int cols = Constants.BOARD_COLS;
+    private int[] indexToRowCol(int index) {
+        int cols = Constants.BOARD_COLS;
 
-	    int row = index / cols;
-	    int col = index % cols;
+        int row = index / cols;
+        int col = index % cols;
 
-	    if (row % 2 == 1)
-	        col = cols - 1 - col;
+        if (row % 2 == 1)
+            col = cols - 1 - col;
 
-	    return new int[]{row, col};
-	}
-	
-	private void invalidActionPopup(String message){
-		javafx.stage.Stage popup = new javafx.stage.Stage();
-        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+        return new int[]{row, col};
+    }
+    
+    private void invalidActionPopup(String message){
+        javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
+        
+        // CRITICAL FIX: Forces popup to stay tied to main window so it never gets orphaned/stuck behind
+        if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
+            popup.initOwner(boardGrid.getScene().getWindow()); 
+        }
+        
         popup.setTitle("Invalid action!");
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
@@ -105,18 +138,24 @@ public class GameController {
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
         returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
         returnBtn.setOnAction(e -> {
-            popup.close(); // Close the popup
+            popup.close(); 
         });
         
         layout.getChildren().addAll(title, returnBtn);
         javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
         popup.setScene(scene);
         popup.showAndWait();
-	}
-	
-	private void displayCard(Card card){
-		javafx.stage.Stage popup = new javafx.stage.Stage();
-        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+    }
+    
+    private void displayCard(Card card){
+        javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
+        
+        // CRITICAL FIX: Forces popup to stay tied to main window
+        if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
+            popup.initOwner(boardGrid.getScene().getWindow()); 
+        }
+        
         popup.setTitle(card.getName());
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
@@ -128,21 +167,19 @@ public class GameController {
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
         returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
         returnBtn.setOnAction(e -> {
-            popup.close(); // Close the popup
+            popup.close(); 
         });
         
         layout.getChildren().addAll(title, returnBtn);
         javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
         popup.setScene(scene);
         popup.showAndWait();
-	}
-	
-	private int rowColToIndex(int i, int j) {
-        // If it is an odd row (1, 3, 5...), the board goes right-to-left
+    }
+    
+    private int rowColToIndex(int i, int j) {
         if (i % 2 == 1) {
             return (i * 10) + (9 - j);
         } else {
-            // Even rows go left-to-right
             return (i * 10) + j;
         }
     }
@@ -159,7 +196,7 @@ public class GameController {
                 Cell currentCell = cellArray[i][j];
                 
                 if (currentCell instanceof DoorCell) {
-                    int randomDoor = random.nextInt(10); //change this number to 8
+                    int randomDoor = random.nextInt(10); 
                     imageName = "door"+ randomDoor +"inactive.png";
                     if(i==9 && j==0) imageName = "booinactive.png";
      
@@ -178,23 +215,18 @@ public class GameController {
                     setOriginalSprite(imageName, i, j); 
                 }
                 
-                // --- ADD THIS BLOCK FOR DOOR ENERGY LABELS ---
                 if (currentCell instanceof DoorCell) {
-                    // Assuming DoorCell has a getEnergy() method returning an int or double
                     int energyAmount = (int) ((DoorCell) currentCell).getEnergy(); 
                     Label energyLabel = new Label(energyAmount + "E");
                     
-                    // Style the label (Using a distinct color like dark red or orange can help it pop)
                     energyLabel.setStyle("-fx-text-fill: #8b0000; -fx-font-weight: bold; -fx-padding: 2px; -fx-font-size: 11px;");
                     
-                    // Force it to the Bottom-Right of the cell
                     GridPane.setHalignment(energyLabel, HPos.RIGHT);
                     GridPane.setValignment(energyLabel, VPos.BOTTOM);
                     
                     int visualRow = 9 - i;
                     boardGrid.add(energyLabel, j, visualRow);
                 }
-                // ----------------------------------------------
             }
         }
         setOriginalSprite(opponentSprite, 0, 0 );
@@ -213,13 +245,12 @@ public class GameController {
     }
     
     private void updateEnergyProgress(){
-    	double playerEnergy = player.getEnergy();
-    	double opponentEnergy = opponent.getEnergy();
-    	playerProgressBar.setProgress(playerEnergy/1000);
-    	opponentProgressBar.setProgress(opponentEnergy/1000);
-    	playerLabel.setText((int)playerEnergy+"");
-    	opponentLabel.setText((int)opponentEnergy+"");
-    	
+        double playerEnergy = player.getEnergy();
+        double opponentEnergy = opponent.getEnergy();
+        playerProgressBar.setProgress(playerEnergy/1000);
+        opponentProgressBar.setProgress(opponentEnergy/1000);
+        playerLabel.setText((int)playerEnergy+"");
+        opponentLabel.setText((int)opponentEnergy+"");
     }
     
     private void drawCellIndices() {
@@ -228,14 +259,11 @@ public class GameController {
                 int cellNumber = rowColToIndex(i, j);
                 Label indexLabel = new Label(String.valueOf(cellNumber));
                 
-                // Changed from white to black right here!
                 indexLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 2px; -fx-font-size: 13px;");
                 
-                // Force it to the Top-Left of the cell
                 GridPane.setHalignment(indexLabel, HPos.LEFT);
                 GridPane.setValignment(indexLabel, VPos.TOP);
                 
-                // Flip the row so 0 is at the bottom of the screen!
                 int visualRow = 9 - i;
                 
                 boardGrid.add(indexLabel, j, visualRow);
@@ -246,38 +274,38 @@ public class GameController {
     private void updateGameInfo(){
         String upNextSide = (gameEngine.getCurrent() == player) ? "(PLAYER)" : "(OPPONENT)";
         
-    	gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
+        gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
                          "Up Next: " + upNextSide + " " + gameEngine.getCurrent().getOriginalRole() + "'s turn!");
                          
-    	String playerConfused = (!player.isConfused())?"":"Player is confused for " + player.getConfusionTurns() + " more turns";
-    	String opponentConfused = (!opponent.isConfused())?"":"Opponent is confused for " + player.getConfusionTurns() + " more turns";
-    	String playerFrozen = (!player.isFrozen())?"":"Player is frozen!";
-    	String opponentFrozen = (!opponent.isFrozen())?"":"Opponent is frozen!";
-    	String playerShielded = (!player.isShielded())?"":"Player is shielded!";
-    	String opponentShielded = (!opponent.isShielded())?"":"Opponent is shielded!";
-    	playerStats.setText(
-    			"Name: " + player.getName() + " (PLAYER)\n" 
-    			+"Original Role: " + player.getOriginalRole() + "\n"
-    			+"Current Role: " + player.getRole() + "\n"
-    			+"Type: " + playerType + "\n"
-    			+"Energy: " + player.getEnergy() + "\n"
-    			+"Position: " + player.getPosition() + "\n"
-    			+playerShielded + "\n"
-    			+playerConfused + "\n"
-    			+playerFrozen + "\n"
-    			);
-    			
-    	opponentStats.setText(
-    			"Name: " + opponent.getName() + " (OPPONENT)\n"
-    			+"Original Role: " + opponent.getOriginalRole() + "\n"
-    			+"Current Role: " + opponent.getRole() + "\n"
-    			+"Type: " + opponentType + "\n"
-    			+"Energy: " + opponent.getEnergy() + "\n"
-    			+"Position: " + opponent.getPosition() + "\n"
-    			+opponentShielded + "\n"
-    			+opponentConfused + "\n"
-    			+opponentFrozen + "\n"
-    			);
+        String playerConfused = (!player.isConfused())?"":"Player is confused for " + player.getConfusionTurns() + " more turns";
+        String opponentConfused = (!opponent.isConfused())?"":"Opponent is confused for " + player.getConfusionTurns() + " more turns";
+        String playerFrozen = (!player.isFrozen())?"":"Player is frozen!";
+        String opponentFrozen = (!opponent.isFrozen())?"":"Opponent is frozen!";
+        String playerShielded = (!player.isShielded())?"":"Player is shielded!";
+        String opponentShielded = (!opponent.isShielded())?"":"Opponent is shielded!";
+        playerStats.setText(
+                "Name: " + player.getName() + " (PLAYER)\n" 
+                +"Original Role: " + player.getOriginalRole() + "\n"
+                +"Current Role: " + player.getRole() + "\n"
+                +"Type: " + playerType + "\n"
+                +"Energy: " + player.getEnergy() + "\n"
+                +"Position: " + player.getPosition() + "\n"
+                +playerShielded + "\n"
+                +playerConfused + "\n"
+                +playerFrozen + "\n"
+                );
+                
+        opponentStats.setText(
+                "Name: " + opponent.getName() + " (OPPONENT)\n"
+                +"Original Role: " + opponent.getOriginalRole() + "\n"
+                +"Current Role: " + opponent.getRole() + "\n"
+                +"Type: " + opponentType + "\n"
+                +"Energy: " + opponent.getEnergy() + "\n"
+                +"Position: " + opponent.getPosition() + "\n"
+                +opponentShielded + "\n"
+                +opponentConfused + "\n"
+                +opponentFrozen + "\n"
+                );
     }
     
     private void updateBoardGraphics() {
@@ -286,10 +314,6 @@ public class GameController {
         updateEnergyProgress();
         updateGameInfo();
         
-        // Optional: If you call this method every turn, you might want to clear 
-        // the grid first so images don't stack on top of each other forever.
-        // boardGrid.getChildren().clear(); 
-        
         for (int i = 0; i < cellArray.length; i++) {
             for (int j = 0; j < cellArray[i].length; j++) {
                 
@@ -297,37 +321,36 @@ public class GameController {
                 Cell currentCell = cellArray[i][j];
 
                 if (currentCell instanceof DoorCell) {
-                	if(((DoorCell) currentCell).isActivated())
-                	{	
-                		System.out.println("Door activated");
-                		if(!((DoorCell) currentCell).isOccupied()){
-                			imageName = setDoorActive(i,j);
-                    		if(i==9 && j==0)imageName = "booactive.png";
-                		}
-                	}
-                	else
-                	{
-                		imageName = getOriginalSpriteName(i,j);
-                    	if(i==9 && j==0)imageName = "booinactive.png";
-                	}
+                    if(((DoorCell) currentCell).isActivated())
+                    {   
+                        System.out.println("Door activated");
+                        if(!((DoorCell) currentCell).isOccupied()){
+                            imageName = setDoorActive(i,j);
+                            if(i==9 && j==0)imageName = "booactive.png";
+                        }
+                    }
+                    else
+                    {
+                        imageName = getOriginalSpriteName(i,j);
+                        if(i==9 && j==0)imageName = "booinactive.png";
+                    }
 
                 } else if (currentCell instanceof ConveyorBelt) {
                     imageName = "conveyor.png"; 
                 } else if (currentCell instanceof ContaminationSock) {
                     imageName = "sock.png"; 
                 } else if (currentCell instanceof CardCell) {
-                	imageName = "card.png"; 
+                    imageName = "card.png"; 
                 } else if (currentCell instanceof MonsterCell) {
-                	imageName = currentCell.getName() + ".png";
+                    imageName = currentCell.getName() + ".png";
                 }
                 else{imageName = "empty.png";}
                 
 
                 if (imageName != null) {
-                    // 2. Pass i (row) and j (column) to the method
                     setSprite(imageName, i, j); 
                 }
-             // --- ADD THIS BLOCK HERE TOO TO REDRAW LABELS EVERY TURN ---
+                
                 if (currentCell instanceof DoorCell) {
                     int energyAmount = (int) ((DoorCell) currentCell).getEnergy(); 
                     Label energyLabel = new Label(energyAmount + "E");
@@ -340,7 +363,6 @@ public class GameController {
                     int visualRow = 9 - i;
                     boardGrid.add(energyLabel, j, visualRow);
                 }
-                // -----------------------------------------------------------
             }
         }
         
@@ -364,16 +386,16 @@ public class GameController {
         if (gameEngine.getWinner() != null) {
             Monster winner = gameEngine.getWinner();
             
-            // 1. Create a custom popup window
             javafx.stage.Stage popup = new javafx.stage.Stage();
-            popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Blocks clicks to the main game
+            popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
+            if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
+                popup.initOwner(boardGrid.getScene().getWindow()); 
+            }
             popup.setTitle("Game Over!");
 
-            // 2. Set up the layout
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
             layout.setAlignment(javafx.geometry.Pos.CENTER);
             
-            // 3. Add the winner text
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
             title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
             
@@ -385,13 +407,11 @@ public class GameController {
             );
             details.setStyle("-fx-font-size: 16px; -fx-alignment: center; -fx-text-alignment: center;");
             
-            // 4. Add the return button
             javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
             returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
             returnBtn.setOnAction(e -> {
-                popup.close(); // Close the popup
+                popup.close(); 
                 
-                // Transition the main screen
                 try {
                     javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
                     javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
@@ -402,28 +422,23 @@ public class GameController {
                 }
             });
             
-            // 5. Display the popup
             layout.getChildren().addAll(title, details, returnBtn);
             javafx.scene.Scene scene = new javafx.scene.Scene(layout, 400, 300);
             popup.setScene(scene);
             popup.showAndWait();
         }
         
-        
-        
         drawCellIndices();
     }
 
-
-    // 3. Update method signature to accept row (i) and column (j)
     private String setDoorActive(int i, int j){
-    		System.out.println(originalSpriteGrid[i][j]);
-    		String doorNumber = originalSpriteGrid[i][j].charAt(4) + "";
-    		return "door" +  doorNumber + "active.png";
+            System.out.println(originalSpriteGrid[i][j]);
+            String doorNumber = originalSpriteGrid[i][j].charAt(4) + "";
+            return "door" +  doorNumber + "active.png";
     }
     
     private String getOriginalSpriteName(int i, int j){
-    	return originalSpriteGrid[i][j];
+        return originalSpriteGrid[i][j];
     }
     
     private void setOriginalSprite(String imageName, int i, int j) {
@@ -435,15 +450,11 @@ public class GameController {
             imageView.setFitHeight(59);
             imageView.setPreserveRatio(false);
             
-            // 1. Center the image perfectly inside the grid cell
             GridPane.setHalignment(imageView, HPos.CENTER);
             GridPane.setValignment(imageView, VPos.CENTER);
             
-            // 2. Flip the row so the board draws right-side up!
-            // Assuming your grid is 10x10, the max row index is 9.
             int visualRow = 9 - i; 
             
-            // Add to grid (Column j, Row visualRow)
             boardGrid.add(imageView, j, visualRow);
             System.out.println("Original sprite changed to "+ imageName);
             originalSpriteGrid[i][j] = imageName;
@@ -462,15 +473,11 @@ public class GameController {
             imageView.setFitHeight(59);
             imageView.setPreserveRatio(false);
             
-            // 1. Center the image perfectly inside the grid cell
             GridPane.setHalignment(imageView, HPos.CENTER);
             GridPane.setValignment(imageView, VPos.CENTER);
             
-            // 2. Flip the row so the board draws right-side up!
-            // Assuming your grid is 10x10, the max row index is 9.
             int visualRow = 9 - i; 
             
-            // Add to grid (Column j, Row visualRow)
             boardGrid.add(imageView, j, visualRow);
             spriteGrid[i][j] = imageName;
             
@@ -486,50 +493,102 @@ public class GameController {
     }
     
     @FXML
-    public void onReturnButtonClicked(ActionEvent event)
-    {
-    	System.out.println("Return Button was clicked in game!");
-            try {
-               
-                javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
-                javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new javafx.scene.Scene(root, 1280, 800));
-                stage.show();
-                Controller.sounds.playMenuMusic();
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
+    public void onReturnButtonClicked(ActionEvent event) {
+        System.out.println("Return Button was clicked in game!");
+        try {
+            javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
+            javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 1280, 800));
+            stage.show();
+            Controller.sounds.playMenuMusic();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
+    }
+        
     @FXML
-    public void onPowerup(ActionEvent event) throws OutOfEnergyException{
-    	try{
-    		gameEngine.usePowerup();
-    		updateBoardGraphics();
-    	}
-    	catch(OutOfEnergyException e){
-    		invalidActionPopup(e.getMessage());
-    	}
+    public void onPowerup(ActionEvent event) throws OutOfEnergyException {
+        try {
+            gameEngine.usePowerup();
+            updateBoardGraphics();
+        }
+        catch(OutOfEnergyException e) {
+            invalidActionPopup(e.getMessage());
+        }
     }
    
     @FXML
-    public void onRollDice(ActionEvent event) throws InvalidMoveException {
-        try {
-            gameEngine.playTurn();
-            updateBoardGraphics();
+    public void onRollDice(ActionEvent event) {
+        // 1. Lock the button immediately
+        Button btn = (Button) event.getSource();
+        btn.setDisable(true);
 
-            // 1. Check if a card was drawn during the move execution
-            Card drawnCard = gameEngine.getBoard().getLastDrawnCard(); // Or gameEngine.getLastDrawnCard();
-            
-            if (drawnCard != null) {
-                // 2. Open up your popup displaying the card information
-                displayCard(drawnCard);
-                
-                // 3. Reset the tracker so it doesn't pop up again on normal spaces
-                gameEngine.getBoard().clearLastDrawnCard(); // Or gameEngine.clearLastDrawnCard();
+        // 2. Play purely visual dice animation first (delays logic by 1.2s)
+        Timeline rollAnimation = new Timeline(new KeyFrame(Duration.millis(80), e -> {
+            int randomVisualFace = (int) (Math.random() * 6);
+            if (diceFaces[randomVisualFace] != null) {
+                diceImageView.setImage(diceFaces[randomVisualFace]);
             }
-        }
-        catch(InvalidMoveException e) {
-            invalidActionPopup(e.getMessage());
-        }
+        }));
+
+        rollAnimation.setCycleCount(15);
+        
+        // 3. When the 1.2s spinning animation finishes, execute your exact original logic!
+        rollAnimation.setOnFinished(e -> {
+            
+            boolean isInvalid = false;
+            String invalidMsg = "";
+
+            // --- EXECUTE YOUR EXACT ORIGINAL GAME LOGIC HERE ---
+            try {
+                gameEngine.playTurn();
+            } catch (InvalidMoveException ex) {
+                isInvalid = true;
+                invalidMsg = ex.getMessage();
+            }
+
+            // --- UI SAFETY & UPDATE BLOCK ---
+            try {
+                // Safely update static dice face using strict text matching to avoid grabbing wrong numbers
+                int finalRoll = 1; 
+                String actionStr = gameEngine.getLastAction();
+                if (actionStr != null) {
+                    // Searches specifically for the phrase to avoid pulling numbers from Cells or Energy amounts
+                    int idx = actionStr.toLowerCase().indexOf("rolled a ");
+                    if (idx != -1 && idx + 9 < actionStr.length()) {
+                        char rollChar = actionStr.charAt(idx + 9);
+                        if (rollChar >= '1' && rollChar <= '6') {
+                            finalRoll = rollChar - '0';
+                        }
+                    }
+                }
+                
+                // Snap visual dice to actual roll
+                if (diceFaces[finalRoll - 1] != null) {
+                    diceImageView.setImage(diceFaces[finalRoll - 1]);
+                }
+
+                // Update the board and stats
+                updateBoardGraphics();
+
+                // Handle your popups exactly like before
+                if (isInvalid) {
+                    invalidActionPopup(invalidMsg);
+                } else {
+                    Card drawnCard = gameEngine.getBoard().getLastDrawnCard(); 
+                    if (drawnCard != null) {
+                        displayCard(drawnCard);
+                        gameEngine.getBoard().clearLastDrawnCard(); 
+                    }
+                }
+            } finally {
+                // CRITICAL FIX: This finally block absolutely guarantees the button is unlocked 
+                // for the next turn, even if the backend threw a hidden silent error.
+                btn.setDisable(false);
+            }
+        });
+
+        // 4. Play the animation!
+        rollAnimation.play();
     }
 }
