@@ -542,4 +542,9 @@ public class GameController {
             invalidActionPopup(e.getMessage());
         }
     }
+    
+    @FXML
+    public void onSettingsButtonClicked(ActionEvent event){
+    	SettingsController.openSettings();
+    }
 }

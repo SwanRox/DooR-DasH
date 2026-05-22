@@ -26,11 +26,20 @@
             <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Button mnemonicParsing="false" onAction="#onReturnButtonClicked" style="-fx-background-radius: 100px;" text="Return To Main Menu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font name="Berlin Sans FB" size="40.0" />
-               </font>
-            </Button>
+            <HBox prefHeight="100.0" prefWidth="833.0" spacing="30.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onReturnButtonClicked" style="-fx-background-radius: 100px;" text="Return To Main Menu">
+                     <font>
+                        <Font name="Berlin Sans FB" size="40.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onSettingsButtonClicked" style="-fx-background-radius: 100px;" text="Settings">
+                     <font>
+                        <Font name="Berlin Sans FB" size="40.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
             <Button minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50em; -fx-background-color: #3589FF;" text="i" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Serif Bold" size="36.0" />
