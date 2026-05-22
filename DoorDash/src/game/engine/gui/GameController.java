@@ -290,8 +290,8 @@ public class GameController {
                          
         String playerConfused = (!player.isConfused()) ? "" : "Player is confused for " + player.getConfusionTurns() + " more turns";
         String opponentConfused = (!opponent.isConfused()) ? "" : "Opponent is confused for " + opponent.getConfusionTurns() + " more turns";
-        String playerFrozen = (!player.isFrozen()) ? "" : "Player is frozen for one turn!";
-        String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen for one turn!";
+        String playerFrozen = (!player.isFrozen()) ? "" : "Player is frozen!";
+        String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen!";
         String playerShielded = (!player.isShielded()) ? "" : "Player is shielded!";
         String opponentShielded = (!opponent.isShielded()) ? "" : "Opponent is shielded!";
         updatePowerUpInfo();
