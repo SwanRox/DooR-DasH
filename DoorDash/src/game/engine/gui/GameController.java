@@ -375,7 +375,7 @@ public class GameController {
             
             // 3. Add the winner text
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
-            title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+            title.setStyle("-fx-font-size: 33px; -fx-font-family:'Berlin Sans FB'");
             
             javafx.scene.control.Label details = new javafx.scene.control.Label(
                 "Role: " + winner.getOriginalRole() + "\n\n" +
@@ -383,11 +383,11 @@ public class GameController {
                 player.getName() + " Energy: " + player.getEnergy() + "\n" +
                 opponent.getName() + " Energy: " + opponent.getEnergy()
             );
-            details.setStyle("-fx-font-size: 16px; -fx-alignment: center; -fx-text-alignment: center;");
+            details.setStyle("-fx-font-size: 26; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family:'Cambria'");
             
             // 4. Add the return button
             javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
-            returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+            returnBtn.setStyle("-fx-font-size: 30px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
             returnBtn.setOnAction(e -> {
                 popup.close(); // Close the popup
                 
@@ -404,7 +404,7 @@ public class GameController {
             
             // 5. Display the popup
             layout.getChildren().addAll(title, details, returnBtn);
-            javafx.scene.Scene scene = new javafx.scene.Scene(layout, 400, 300);
+            javafx.scene.Scene scene = new javafx.scene.Scene(layout, 500, 400);
             popup.setScene(scene);
             popup.showAndWait();
         }
