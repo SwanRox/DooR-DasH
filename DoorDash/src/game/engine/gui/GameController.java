@@ -1,5 +1,6 @@
 package game.engine.gui;
 
+import game.engine.Board;
 import game.engine.Constants;
 import game.engine.Game;
 import game.engine.cards.Card;
@@ -12,17 +13,15 @@ import game.engine.cells.MonsterCell;
 import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
-<<<<<<< HEAD
 import javafx.stage.StageStyle;
-=======
+
 
 // NEW IMPORTS FOR ANIMATION & UI SAFETY
->>>>>>> 6d8ff5d4e048e95eb7679d4c813138228c986f1e
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -154,11 +153,10 @@ public class GameController {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
         
-<<<<<<< HEAD
-=======
+
         popup.setTitle("Invalid action!");
 
->>>>>>> 6d8ff5d4e048e95eb7679d4c813138228c986f1e
+
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
         // Consistent styling
         layout.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #3589FF; -fx-border-width: 5px; -fx-padding: 20px;");
@@ -183,24 +181,18 @@ public class GameController {
         if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
-<<<<<<< HEAD
+
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
         applyPopupStyle(layout); // <--- Using the helper!
 
         javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName() + "\nCard action: " + card.getDescription());
         title.setStyle("-fx-font-size: 24px; -fx-font-family: 'Berlin Sans FB'; -fx-font-weight: bold; -fx-text-alignment: center;");
-=======
+
         
         popup.setTitle(card.getName());
 
-        javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
-        layout.setAlignment(javafx.geometry.Pos.CENTER);
-        
-        // FRIEND'S UPDATED STYLING
-        javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName()+"\nCard action: " + card.getDescription());
-        title.setStyle("-fx-font-size: 24px; -fx-font-family:Cambria; -fx-font-weight:bold; -fx-text-alignment:center;");
->>>>>>> 6d8ff5d4e048e95eb7679d4c813138228c986f1e
+       
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
         applyButtonStyle(returnBtn); // <--- Using the helper!
@@ -440,12 +432,12 @@ public class GameController {
             if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
                 popup.initOwner(boardGrid.getScene().getWindow()); 
             }
-<<<<<<< HEAD
+
             
-=======
+
             popup.setTitle("Game Over!");
 
->>>>>>> 6d8ff5d4e048e95eb7679d4c813138228c986f1e
+
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
             // 2. CONSISTENT STYLING
             layout.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #3589FF; -fx-border-width: 5px; -fx-padding: 20px;");
@@ -606,7 +598,6 @@ public class GameController {
         rollAnimation.setCycleCount(15);
         
         rollAnimation.setOnFinished(e -> {
-            
             boolean isInvalid = false;
             String invalidMsg = "";
 
@@ -618,6 +609,7 @@ public class GameController {
             }
 
             try {
+                // Parse the dice number correctly
                 int finalRoll = 1; 
                 String actionStr = gameEngine.getLastAction();
                 if (actionStr != null) {
@@ -636,9 +628,7 @@ public class GameController {
 
                 updateBoardGraphics();
 
-<<<<<<< HEAD
-                
-                // to guarantee memory clearing even if window closefailss.
+                // MERGED LOGIC: Displays card and guarantees memory is cleared
                 Card drawnCard = Board.getLastDrawnCard(); 
                 if (drawnCard != null) {
                     try {
@@ -648,16 +638,8 @@ public class GameController {
                     }
                 }
 
-=======
->>>>>>> 6d8ff5d4e048e95eb7679d4c813138228c986f1e
                 if (isInvalid) {
                     invalidActionPopup(invalidMsg);
-                } else {
-                    Card drawnCard = gameEngine.getBoard().getLastDrawnCard(); 
-                    if (drawnCard != null) {
-                        displayCard(drawnCard);
-                        gameEngine.getBoard().clearLastDrawnCard(); 
-                    }
                 }
             } finally {
                 btn.setDisable(false);
