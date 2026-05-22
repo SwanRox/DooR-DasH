@@ -455,12 +455,13 @@ public class GameController {
             applyButtonStyle(returnBtn); 
             
             returnBtn.setOnAction(e -> {
-                popup.close(); 
+
                 try {
                     javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
                     javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
                     mainStage.setScene(new javafx.scene.Scene(root, 1280, 800));
                     Controller.sounds.playMenuMusic();
+                    popup.close();
                 } catch (java.io.IOException ex) {
                     ex.printStackTrace();
                 }
