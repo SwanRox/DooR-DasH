@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.InstructionsController"> <children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.InstructionsController"> 
+   <children>
       <ScrollPane fitToWidth="true" prefHeight="531.0" prefWidth="500.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox prefWidth="485.0" spacing="15.0">
@@ -27,40 +28,121 @@
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
-                  <Label text="Reach Boo's Door (Cell 99) with at least 1000 energy." wrapText="true">
+                  <Label text="Navigate the Floor to land EXACTLY on Boo's Door (Cell 99) with at least 1000 energy. Overshooting wraps you back to the beginning of the board." wrapText="true">
                      <font>
                         <Font name="Cambria" size="25.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
+
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="867.0" text="Visuals &amp; Status Effects" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Berlin Sans FB" size="33.0" />
+                     </font>
+                  </Label>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="• Identifiers: The Player has a Blue border; the Opponent has a Red border." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Freeze: The frozen monster must skip their entire next turn." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Confusion: Swaps the SCARER/LAUGHER roles of both monsters temporarily." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
                   
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="858.0" text="Turn Sequence" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
-                  <Label text="1. Powerup Phase (Optional): Costs 500 energy.&#10;2. Dice Roll: Roll a standard 6-sided dice.&#10;3. Movement: Move to the new cell.&#10;4. Cell Action: Activate the landed cell's effect." wrapText="true">
-                     <font>
-                        <Font name="Cambria" size="25.0" />
-                     </font></Label>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="1. Powerup Phase (Optional): Costs 500 energy." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="2. Dice Roll: Roll a standard 6-sided dice." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="3. Movement: Move to the new cell. If occupied by the opponent, the move is invalid—stay in place and re-roll." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="4. Cell Action: Activate the landed cell's effect." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
                   
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="867.0" text="Cell Types" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
-                  <Label text="• Doors: Matching role grants energy to the team. Mismatch drains energy.&#10;• Monster Cells: Same role executes your powerup for free. Opposite role swaps energy if you have more than them.&#10;• Conveyor Belts: Transports you forward.&#10;• Contamination Socks: Transports you backward and drains 100 energy.&#10;• Card Cells: Draw a random mysterious Card." wrapText="true">
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="• Doors (One-Time Use): Matching role grants energy to your team. Mismatch drains energy. Doors become exhausted (red bulbs) after the first interaction." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Monster Cells: Same role executes your powerup for free. Opposite role swaps energy if you have more than them." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Conveyor Belts: Transports you forward." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Contamination Socks: Transports you backward and drains 100 energy." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Card Cells: Draw a random mysterious Card." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="867.0" text="Cards" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="Cambria" size="25.0" />
-                     </font></Label>
+                        <Font name="Berlin Sans FB" size="33.0" />
+                     </font>
+                  </Label>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="• Shield: Blocks the next negative energy loss effect for your team." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Swapper: Swaps your position with the opponent if you are behind." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Energy Steal: Steals energy from the opponent." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Start Over: Sends either you or the opponent back to the first cell." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
                   
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="711.0" text="Monster Types" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
-                  <Label text="• Dasher: Base movement is doubled (2x).&#10;Powerup grants 3x speed for 3 turns.&#10;• Dynamo: Doubles all energy gains and losses. Powerup freezes opponent for 1 turn.&#10;• MultiTasker: Dice rolls are halved, but all energy changes gain +200. Powerup restores normal speed for 2 turns.&#10;• Schemer: All energy changes gain +10. Powerup steals 10 energy from ALL other monsters." wrapText="true">
-                     <font>
-                        <Font name="Cambria" size="25.0" />
-                     </font></Label>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="• Dasher: Base movement is doubled (2x). Powerup grants 3x speed for 3 turns." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Dynamo: Doubles all energy gains and losses. Powerup freezes opponent for 1 turn." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• MultiTasker: Dice rolls are halved, but all energy changes gain +200. Powerup restores normal speed for 2 turns." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                        <Label text="• Schemer: All energy changes gain +10. Powerup steals 10 energy from ALL other monsters." wrapText="true">
+                           <font><Font name="Cambria" size="25.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </content>
