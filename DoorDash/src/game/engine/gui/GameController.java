@@ -60,6 +60,12 @@ public class GameController {
 
     private String[][] originalSpriteGrid = new String[10][10];
     private String[][] spriteGrid = new String[10][10];
+    
+    // FRIEND'S SHIELD TRACKING VARIABLES
+    private boolean pShieldBroken = false;
+    private boolean pShieldUp = false;
+    private boolean oShieldBroken = false;
+    private boolean oShieldUp = false;
 
     private Game gameEngine;
 
@@ -70,7 +76,6 @@ public class GameController {
     private String playerType;
     private String opponentType;
 
-    // PRE-LOADS DICE IMAGES SO THE UI DOESN'T LAG LATER
     @FXML
     public void initialize() {
         for (int i = 0; i < 6; i++) {
@@ -82,7 +87,7 @@ public class GameController {
             }
         }
         if (diceFaces[0] != null && diceImageView != null) {
-            diceImageView.setImage(diceFaces[0]); // Default face on startup
+            diceImageView.setImage(diceFaces[0]); 
         }
     }
     
@@ -122,7 +127,6 @@ public class GameController {
         javafx.stage.Stage popup = new javafx.stage.Stage();
         popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
         
-        // CRITICAL FIX: Forces popup to stay tied to main window so it never gets orphaned/stuck behind
         if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
@@ -151,7 +155,6 @@ public class GameController {
         javafx.stage.Stage popup = new javafx.stage.Stage();
         popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
         
-        // CRITICAL FIX: Forces popup to stay tied to main window
         if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
@@ -161,11 +164,12 @@ public class GameController {
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
-        javafx.scene.control.Label title = new javafx.scene.control.Label("Card action: " + card.getDescription());
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        // FRIEND'S UPDATED STYLING
+        javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName()+"\nCard action: " + card.getDescription());
+        title.setStyle("-fx-font-size: 24px; -fx-font-family:Cambria; -fx-font-weight:bold; -fx-text-alignment:center;");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
-        returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+        returnBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
         returnBtn.setOnAction(e -> {
             popup.close(); 
         });
@@ -265,24 +269,34 @@ public class GameController {
                 GridPane.setValignment(indexLabel, VPos.TOP);
                 
                 int visualRow = 9 - i;
-                
                 boardGrid.add(indexLabel, j, visualRow);
             }
         }
     }
     
-    private void updateGameInfo(){
+    private void updateGameInfo() {
+        // FRIEND'S SHIELD TRACKING LOGIC
+        if (player.isShielded() == true) pShieldUp = true;
+        if (opponent.isShielded() == true) oShieldUp = true;
+        if (pShieldUp == true && player.isShielded() == false) { pShieldBroken = true; pShieldUp = false; }
+        if (oShieldUp == true && opponent.isShielded() == false) { oShieldBroken = true; oShieldUp = false; }
+
         String upNextSide = (gameEngine.getCurrent() == player) ? "(PLAYER)" : "(OPPONENT)";
         
         gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
                          "Up Next: " + upNextSide + " " + gameEngine.getCurrent().getOriginalRole() + "'s turn!");
                          
-        String playerConfused = (!player.isConfused())?"":"Player is confused for " + player.getConfusionTurns() + " more turns";
-        String opponentConfused = (!opponent.isConfused())?"":"Opponent is confused for " + player.getConfusionTurns() + " more turns";
-        String playerFrozen = (!player.isFrozen())?"":"Player is frozen!";
-        String opponentFrozen = (!opponent.isFrozen())?"":"Opponent is frozen!";
-        String playerShielded = (!player.isShielded())?"":"Player is shielded!";
-        String opponentShielded = (!opponent.isShielded())?"":"Opponent is shielded!";
+        String playerConfused = (!player.isConfused()) ? "" : "Player is confused for " + player.getConfusionTurns() + " more turns";
+        String opponentConfused = (!opponent.isConfused()) ? "" : "Opponent is confused for " + opponent.getConfusionTurns() + " more turns";
+        String playerFrozen = (!player.isFrozen()) ? "" : "Player is frozen!";
+        String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen!";
+        String playerShielded = (!player.isShielded()) ? "" : "Player is shielded!";
+        String opponentShielded = (!opponent.isShielded()) ? "" : "Opponent is shielded!";
+        
+        // FRIEND'S SHIELD BROKEN ALERTS
+        if (pShieldBroken) { playerShielded = "Player's shield was broken!"; pShieldBroken = false; }
+        if (oShieldBroken) { opponentShielded = "Opponent's shield was broken!"; oShieldBroken = false; }
+        
         playerStats.setText(
                 "Name: " + player.getName() + " (PLAYER)\n" 
                 +"Original Role: " + player.getOriginalRole() + "\n"
@@ -396,8 +410,9 @@ public class GameController {
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
             layout.setAlignment(javafx.geometry.Pos.CENTER);
             
+            // FRIEND'S GAME OVER STYLING
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
-            title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+            title.setStyle("-fx-font-size: 33px; -fx-font-family:'Berlin Sans FB'");
             
             javafx.scene.control.Label details = new javafx.scene.control.Label(
                 "Role: " + winner.getOriginalRole() + "\n\n" +
@@ -405,10 +420,10 @@ public class GameController {
                 player.getName() + " Energy: " + player.getEnergy() + "\n" +
                 opponent.getName() + " Energy: " + opponent.getEnergy()
             );
-            details.setStyle("-fx-font-size: 16px; -fx-alignment: center; -fx-text-alignment: center;");
+            details.setStyle("-fx-font-size: 26; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family:'Cambria'");
             
             javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
-            returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+            returnBtn.setStyle("-fx-font-size: 30px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
             returnBtn.setOnAction(e -> {
                 popup.close(); 
                 
@@ -423,7 +438,8 @@ public class GameController {
             });
             
             layout.getChildren().addAll(title, details, returnBtn);
-            javafx.scene.Scene scene = new javafx.scene.Scene(layout, 400, 300);
+            // FRIEND'S BIGGER SCENE
+            javafx.scene.Scene scene = new javafx.scene.Scene(layout, 500, 400);
             popup.setScene(scene);
             popup.showAndWait();
         }
@@ -519,11 +535,9 @@ public class GameController {
    
     @FXML
     public void onRollDice(ActionEvent event) {
-        // 1. Lock the button immediately
         Button btn = (Button) event.getSource();
         btn.setDisable(true);
 
-        // 2. Play purely visual dice animation first (delays logic by 1.2s)
         Timeline rollAnimation = new Timeline(new KeyFrame(Duration.millis(80), e -> {
             int randomVisualFace = (int) (Math.random() * 6);
             if (diceFaces[randomVisualFace] != null) {
@@ -533,13 +547,11 @@ public class GameController {
 
         rollAnimation.setCycleCount(15);
         
-        // 3. When the 1.2s spinning animation finishes, execute your exact original logic!
         rollAnimation.setOnFinished(e -> {
             
             boolean isInvalid = false;
             String invalidMsg = "";
 
-            // --- EXECUTE YOUR EXACT ORIGINAL GAME LOGIC HERE ---
             try {
                 gameEngine.playTurn();
             } catch (InvalidMoveException ex) {
@@ -547,13 +559,10 @@ public class GameController {
                 invalidMsg = ex.getMessage();
             }
 
-            // --- UI SAFETY & UPDATE BLOCK ---
             try {
-                // Safely update static dice face using strict text matching to avoid grabbing wrong numbers
                 int finalRoll = 1; 
                 String actionStr = gameEngine.getLastAction();
                 if (actionStr != null) {
-                    // Searches specifically for the phrase to avoid pulling numbers from Cells or Energy amounts
                     int idx = actionStr.toLowerCase().indexOf("rolled a ");
                     if (idx != -1 && idx + 9 < actionStr.length()) {
                         char rollChar = actionStr.charAt(idx + 9);
@@ -563,15 +572,12 @@ public class GameController {
                     }
                 }
                 
-                // Snap visual dice to actual roll
                 if (diceFaces[finalRoll - 1] != null) {
                     diceImageView.setImage(diceFaces[finalRoll - 1]);
                 }
 
-                // Update the board and stats
                 updateBoardGraphics();
 
-                // Handle your popups exactly like before
                 if (isInvalid) {
                     invalidActionPopup(invalidMsg);
                 } else {
@@ -582,13 +588,16 @@ public class GameController {
                     }
                 }
             } finally {
-                // CRITICAL FIX: This finally block absolutely guarantees the button is unlocked 
-                // for the next turn, even if the backend threw a hidden silent error.
                 btn.setDisable(false);
             }
         });
 
-        // 4. Play the animation!
         rollAnimation.play();
+    }
+
+    // FRIEND'S SETTINGS METHOD
+    @FXML
+    public void onSettingsButtonClicked(ActionEvent event){
+        SettingsController.openSettings();
     }
 }
