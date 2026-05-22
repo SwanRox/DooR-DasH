@@ -2,6 +2,7 @@ package game.engine.gui;
 
 import game.engine.Constants;
 import game.engine.Game;
+import game.engine.Board; // <--- ADDED EXPLICIT BOARD IMPORT
 import game.engine.cards.Card;
 import game.engine.cells.CardCell;
 import game.engine.cells.Cell;
@@ -13,7 +14,6 @@ import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
 
-// NEW IMPORTS FOR ANIMATION & UI SAFETY
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -53,7 +53,6 @@ public class GameController {
     @FXML
     private GridPane boardGrid;
     
-    // UI HOOKS FOR DICE ANIMATION
     @FXML
     private ImageView diceImageView;
     private Image[] diceFaces = new Image[6];
@@ -61,7 +60,6 @@ public class GameController {
     private String[][] originalSpriteGrid = new String[10][10];
     private String[][] spriteGrid = new String[10][10];
     
-    // FRIEND'S SHIELD TRACKING VARIABLES
     private boolean pShieldBroken = false;
     private boolean pShieldUp = false;
     private boolean oShieldBroken = false;
@@ -131,6 +129,9 @@ public class GameController {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
         
+        // FIX: Disables the 'X' button to force players to use your Close button
+        popup.setOnCloseRequest(e -> e.consume());
+        
         popup.setTitle("Invalid action!");
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
@@ -159,12 +160,14 @@ public class GameController {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
         
+        // FIX: Disables the 'X' button to force players to use your Close button
+        popup.setOnCloseRequest(e -> e.consume());
+        
         popup.setTitle(card.getName());
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
-        // FRIEND'S UPDATED STYLING
         javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName()+"\nCard action: " + card.getDescription());
         title.setStyle("-fx-font-size: 24px; -fx-font-family:Cambria; -fx-font-weight:bold; -fx-text-alignment:center;");
         
@@ -275,7 +278,6 @@ public class GameController {
     }
     
     private void updateGameInfo() {
-        // FRIEND'S SHIELD TRACKING LOGIC
         if (player.isShielded() == true) pShieldUp = true;
         if (opponent.isShielded() == true) oShieldUp = true;
         if (pShieldUp == true && player.isShielded() == false) { pShieldBroken = true; pShieldUp = false; }
@@ -288,12 +290,11 @@ public class GameController {
                          
         String playerConfused = (!player.isConfused()) ? "" : "Player is confused for " + player.getConfusionTurns() + " more turns";
         String opponentConfused = (!opponent.isConfused()) ? "" : "Opponent is confused for " + opponent.getConfusionTurns() + " more turns";
-        String playerFrozen = (!player.isFrozen()) ? "" : "Player is frozen for one turn!";
-        String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen for one turn!";
+        String playerFrozen = (!player.isFrozen()) ? "" : "Player is frozen!";
+        String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen!";
         String playerShielded = (!player.isShielded()) ? "" : "Player is shielded!";
         String opponentShielded = (!opponent.isShielded()) ? "" : "Opponent is shielded!";
         
-        // FRIEND'S SHIELD BROKEN ALERTS
         if (pShieldBroken) { playerShielded = "Player's shield was broken!"; pShieldBroken = false; }
         if (oShieldBroken) { opponentShielded = "Opponent's shield was broken!"; oShieldBroken = false; }
         
@@ -405,12 +406,15 @@ public class GameController {
             if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
                 popup.initOwner(boardGrid.getScene().getWindow()); 
             }
+            
+            // FIX: Disables the 'X' button to force players to transition to the main menu!
+            popup.setOnCloseRequest(e -> e.consume());
+            
             popup.setTitle("Game Over!");
 
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
             layout.setAlignment(javafx.geometry.Pos.CENTER);
             
-            // FRIEND'S GAME OVER STYLING
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
             title.setStyle("-fx-font-size: 33px; -fx-font-family:'Berlin Sans FB'");
             
@@ -438,7 +442,6 @@ public class GameController {
             });
             
             layout.getChildren().addAll(title, details, returnBtn);
-            // FRIEND'S BIGGER SCENE
             javafx.scene.Scene scene = new javafx.scene.Scene(layout, 500, 400);
             popup.setScene(scene);
             popup.showAndWait();
@@ -448,7 +451,6 @@ public class GameController {
     }
 
     private String setDoorActive(int i, int j){
-            System.out.println(originalSpriteGrid[i][j]);
             String doorNumber = originalSpriteGrid[i][j].charAt(4) + "";
             return "door" +  doorNumber + "active.png";
     }
@@ -472,7 +474,6 @@ public class GameController {
             int visualRow = 9 - i; 
             
             boardGrid.add(imageView, j, visualRow);
-            System.out.println("Original sprite changed to "+ imageName);
             originalSpriteGrid[i][j] = imageName;
 
         } catch (NullPointerException e) {
@@ -504,13 +505,11 @@ public class GameController {
 
     @FXML
     public void onQuestionMarkClicked(ActionEvent event) {
-        System.out.println("Help button clicked in the game!");
         InstructionsController.openInstructions();
     }
     
     @FXML
     public void onReturnButtonClicked(ActionEvent event) {
-        System.out.println("Return Button was clicked in game!");
         try {
             javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
@@ -578,14 +577,19 @@ public class GameController {
 
                 updateBoardGraphics();
 
+                // FIX: Used explicit Board class call and a Try/Finally block 
+                // to guarantee memory clearing even if window closure fails.
+                Card drawnCard = Board.getLastDrawnCard(); 
+                if (drawnCard != null) {
+                    try {
+                        displayCard(drawnCard);
+                    } finally {
+                        Board.clearLastDrawnCard(); 
+                    }
+                }
+
                 if (isInvalid) {
                     invalidActionPopup(invalidMsg);
-                } else {
-                    Card drawnCard = gameEngine.getBoard().getLastDrawnCard(); 
-                    if (drawnCard != null) {
-                        displayCard(drawnCard);
-                        gameEngine.getBoard().clearLastDrawnCard(); 
-                    }
                 }
             } finally {
                 btn.setDisable(false);
@@ -595,7 +599,6 @@ public class GameController {
         rollAnimation.play();
     }
 
-    // FRIEND'S SETTINGS METHOD
     @FXML
     public void onSettingsButtonClicked(ActionEvent event){
         SettingsController.openSettings();
