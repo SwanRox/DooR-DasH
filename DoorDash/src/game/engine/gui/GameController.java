@@ -13,7 +13,7 @@ import game.engine.cells.MonsterCell;
 import game.engine.exceptions.InvalidMoveException;
 import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
-
+import javafx.stage.StageStyle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -121,65 +121,68 @@ public class GameController {
         return new int[]{row, col};
     }
     
-    private void invalidActionPopup(String message){
+    private void applyPopupStyle(javafx.scene.layout.VBox layout) {
+        layout.setStyle("-fx-background-color: #f0f0f0; " +
+                        "-fx-border-color: #3589FF; " +
+                        "-fx-border-width: 5px; " +
+                        "-fx-padding: 20px; " +
+                        "-fx-alignment: center;");
+    }
+
+    private void applyButtonStyle(javafx.scene.control.Button btn) {
+        btn.setStyle("-fx-font-size: 20px; " +
+                     "-fx-padding: 10px; " +
+                     "-fx-font-family: 'Berlin Sans FB'; " +
+                     "-fx-background-radius: 100px; " +
+                     "-fx-background-color: #3589FF; " +
+                     "-fx-text-fill: white;");
+    }
+    private void invalidActionPopup(String message) {
         javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initStyle(javafx.stage.StageStyle.UNDECORATED); 
         popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
         
         if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
         
-        // FIX: Disables the 'X' button to force players to use your Close button
-        popup.setOnCloseRequest(e -> e.consume());
-        
-        popup.setTitle("Invalid action!");
-
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
+        // Consistent styling
+        layout.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #3589FF; -fx-border-width: 5px; -fx-padding: 20px;");
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
         javafx.scene.control.Label title = new javafx.scene.control.Label("Invalid action: " + message);
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Berlin Sans FB';");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
-        returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
-        returnBtn.setOnAction(e -> {
-            popup.close(); 
-        });
+        returnBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10px; -fx-font-family: 'Berlin Sans FB'; -fx-background-radius: 100px; -fx-background-color: #3589FF; -fx-text-fill: white;");
+        returnBtn.setOnAction(e -> popup.close());
         
         layout.getChildren().addAll(title, returnBtn);
-        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
-        popup.setScene(scene);
+        popup.setScene(new javafx.scene.Scene(layout));
         popup.showAndWait();
     }
     
-    private void displayCard(Card card){
+    private void displayCard(Card card) {
         javafx.stage.Stage popup = new javafx.stage.Stage();
+        popup.initStyle(javafx.stage.StageStyle.UNDECORATED); 
         popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
-        
         if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
             popup.initOwner(boardGrid.getScene().getWindow()); 
         }
-        
-        // FIX: Disables the 'X' button to force players to use your Close button
-        popup.setOnCloseRequest(e -> e.consume());
-        
-        popup.setTitle(card.getName());
 
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
-        layout.setAlignment(javafx.geometry.Pos.CENTER);
-        
-        javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName()+"\nCard action: " + card.getDescription());
-        title.setStyle("-fx-font-size: 24px; -fx-font-family:Cambria; -fx-font-weight:bold; -fx-text-alignment:center;");
+        applyPopupStyle(layout); // <--- Using the helper!
+
+        javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName() + "\nCard action: " + card.getDescription());
+        title.setStyle("-fx-font-size: 24px; -fx-font-family: 'Berlin Sans FB'; -fx-font-weight: bold; -fx-text-alignment: center;");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
-        returnBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
-        returnBtn.setOnAction(e -> {
-            popup.close(); 
-        });
+        applyButtonStyle(returnBtn); // <--- Using the helper!
+        returnBtn.setOnAction(e -> popup.close());
         
         layout.getChildren().addAll(title, returnBtn);
-        javafx.scene.Scene scene = new javafx.scene.Scene(layout, 800, 200);
-        popup.setScene(scene);
+        popup.setScene(new javafx.scene.Scene(layout));
         popup.showAndWait();
     }
     
@@ -402,17 +405,16 @@ public class GameController {
             Monster winner = gameEngine.getWinner();
             
             javafx.stage.Stage popup = new javafx.stage.Stage();
+            // 1. UNDECORATED (Removes 'X', minimize, maximize)
+            popup.initStyle(javafx.stage.StageStyle.UNDECORATED); 
             popup.initModality(javafx.stage.Modality.APPLICATION_MODAL); 
             if (boardGrid.getScene() != null && boardGrid.getScene().getWindow() != null) {
                 popup.initOwner(boardGrid.getScene().getWindow()); 
             }
             
-            // FIX: Disables the 'X' button to force players to transition to the main menu!
-            popup.setOnCloseRequest(e -> e.consume());
-            
-            popup.setTitle("Game Over!");
-
             javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
+            // 2. CONSISTENT STYLING
+            layout.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #3589FF; -fx-border-width: 5px; -fx-padding: 20px;");
             layout.setAlignment(javafx.geometry.Pos.CENTER);
             
             javafx.scene.control.Label title = new javafx.scene.control.Label("Winner: " + winner.getName() + "!");
@@ -421,16 +423,15 @@ public class GameController {
             javafx.scene.control.Label details = new javafx.scene.control.Label(
                 "Role: " + winner.getOriginalRole() + "\n\n" +
                 "Final Scores:\n" +
-                player.getName() + " Energy: " + player.getEnergy() + "\n" +
-                opponent.getName() + " Energy: " + opponent.getEnergy()
+                player.getName() + " Energy: " + (int)player.getEnergy() + "E\n" +
+                opponent.getName() + " Energy: " + (int)opponent.getEnergy() + "E"
             );
-            details.setStyle("-fx-font-size: 26; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family:'Cambria'");
+            details.setStyle("-fx-font-size: 26px; -fx-alignment: center; -fx-text-alignment: center; -fx-font-family:'Cambria'");
             
             javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Return to Main Menu");
-            returnBtn.setStyle("-fx-font-size: 30px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
+            returnBtn.setStyle("-fx-font-size: 30px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px; -fx-background-color: #3589FF; -fx-text-fill: white;");
             returnBtn.setOnAction(e -> {
                 popup.close(); 
-                
                 try {
                     javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
                     javafx.stage.Stage mainStage = (javafx.stage.Stage) boardGrid.getScene().getWindow();
@@ -577,8 +578,8 @@ public class GameController {
 
                 updateBoardGraphics();
 
-                // FIX: Used explicit Board class call and a Try/Finally block 
-                // to guarantee memory clearing even if window closure fails.
+                
+                // to guarantee memory clearing even if window closefailss.
                 Card drawnCard = Board.getLastDrawnCard(); 
                 if (drawnCard != null) {
                     try {
