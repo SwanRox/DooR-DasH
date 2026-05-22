@@ -48,6 +48,10 @@ public class GameController {
     private GridPane boardGrid;
     private String[][] originalSpriteGrid = new String[10][10];
     private String[][] spriteGrid = new String[10][10];
+    private boolean pShieldBroken = false;
+    private boolean pShieldUp = false;
+    private boolean oShieldBroken = false;
+    private boolean oShieldUp = false;
 
     private Game gameEngine;
 
@@ -122,11 +126,11 @@ public class GameController {
         javafx.scene.layout.VBox layout = new javafx.scene.layout.VBox(20);
         layout.setAlignment(javafx.geometry.Pos.CENTER);
         
-        javafx.scene.control.Label title = new javafx.scene.control.Label("Card action: " + card.getDescription());
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        javafx.scene.control.Label title = new javafx.scene.control.Label(card.getName()+"\nCard action: " + card.getDescription());
+        title.setStyle("-fx-font-size: 24px; -fx-font-family:Cambria; -fx-font-weight:bold; -fx-text-alignment:center;");
         
         javafx.scene.control.Button returnBtn = new javafx.scene.control.Button("Close");
-        returnBtn.setStyle("-fx-font-size: 16px; -fx-padding: 10px;");
+        returnBtn.setStyle("-fx-font-size: 20px; -fx-padding: 10px; -fx-font-family:'Berlin Sans FB'; -fx-background-radius:100px;");
         returnBtn.setOnAction(e -> {
             popup.close(); // Close the popup
         });
@@ -244,6 +248,10 @@ public class GameController {
     }
     
     private void updateGameInfo(){
+    	if (player.isShielded()==true)pShieldUp=true;
+    	if (opponent.isShielded()==true)oShieldUp=true;
+    	if (pShieldUp==true && player.isShielded() == false){pShieldBroken = true;pShieldUp=false;}
+        if (oShieldUp==true && opponent.isShielded() == false){oShieldBroken = true;oShieldUp=false;}
         String upNextSide = (gameEngine.getCurrent() == player) ? "(PLAYER)" : "(OPPONENT)";
         
     	gameInfo.setText("Last Action: " + gameEngine.getLastAction() + "\n" +
@@ -255,6 +263,8 @@ public class GameController {
     	String opponentFrozen = (!opponent.isFrozen())?"":"Opponent is frozen!";
     	String playerShielded = (!player.isShielded())?"":"Player is shielded!";
     	String opponentShielded = (!opponent.isShielded())?"":"Opponent is shielded!";
+    	if (pShieldBroken){playerShielded = "Player's shield was broken!";pShieldBroken=false;}
+    	if (oShieldBroken){opponentShielded = "Opponent's shield was broken!";oShieldBroken=false;}
     	playerStats.setText(
     			"Name: " + player.getName() + " (PLAYER)\n" 
     			+"Original Role: " + player.getOriginalRole() + "\n"
