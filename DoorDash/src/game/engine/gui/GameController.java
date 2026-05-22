@@ -66,6 +66,8 @@ public class GameController {
     private boolean pShieldUp = false;
     private boolean oShieldBroken = false;
     private boolean oShieldUp = false;
+    private String playerPowerUpText = "";
+    private String opponentPowerUpText = "";
 
     private Game gameEngine;
 
@@ -292,7 +294,7 @@ public class GameController {
         String opponentFrozen = (!opponent.isFrozen()) ? "" : "Opponent is frozen for one turn!";
         String playerShielded = (!player.isShielded()) ? "" : "Player is shielded!";
         String opponentShielded = (!opponent.isShielded()) ? "" : "Opponent is shielded!";
-        
+        updatePowerUpInfo();
         // FRIEND'S SHIELD BROKEN ALERTS
         if (pShieldBroken) { playerShielded = "Player's shield was broken!"; pShieldBroken = false; }
         if (oShieldBroken) { opponentShielded = "Opponent's shield was broken!"; oShieldBroken = false; }
@@ -307,6 +309,7 @@ public class GameController {
                 +playerShielded + "\n"
                 +playerConfused + "\n"
                 +playerFrozen + "\n"
+                +playerPowerUpText
                 );
                 
         opponentStats.setText(
@@ -319,6 +322,7 @@ public class GameController {
                 +opponentShielded + "\n"
                 +opponentConfused + "\n"
                 +opponentFrozen + "\n"
+                +opponentPowerUpText
                 );
     }
     
@@ -522,6 +526,24 @@ public class GameController {
         }
     }
         
+    private void updatePowerUpInfo(){
+    	if(playerType == "Dasher"){
+    		playerPowerUpText = "3x roll for " + ((Dasher)player).getMomentumTurns() + " turns!";
+    		if(((Dasher)player).getMomentumTurns()==0)playerPowerUpText="";
+    	}
+    	if(playerType == "MultiTasker"){
+    		playerPowerUpText = "Restored normal speed for "+((MultiTasker)player).getNormalSpeedTurns()+ " turns!";
+    		if(((MultiTasker)player).getNormalSpeedTurns()==0)playerPowerUpText="";
+    	}
+    	if(opponentType == "Dasher"){
+    		opponentPowerUpText = "3x roll for " + ((Dasher)opponent).getMomentumTurns() + " turns!";
+    		if(((Dasher)opponent).getMomentumTurns()==0)opponentPowerUpText="";
+    	}
+    	if(opponentType == "MultiTasker"){
+    		opponentPowerUpText = "Restored normal speed for "+((MultiTasker)opponent).getNormalSpeedTurns()+ " turns!";
+    		if(((MultiTasker)opponent).getNormalSpeedTurns()==0)opponentPowerUpText="";
+    	}
+    }
     @FXML
     public void onPowerup(ActionEvent event) throws OutOfEnergyException {
         try {
