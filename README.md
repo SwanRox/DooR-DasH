@@ -1,6 +1,6 @@
 # 🚪 DooR DasH: Scarer vs Laugher
 
-A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors. 
+A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board (0-99) collecting energy from children's doors. 
 
 Built across 3 progressive milestones covering OOP data structures, a custom game engine, and a fully responsive JavaFX GUI following the MVC architectural pattern.
 
