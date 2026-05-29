@@ -78,7 +78,7 @@ Cards are drawn at random from a shuffled deck and execute immediately:
 
 You do not need an IDE to play this game. Just follow these steps:
 
-1. **Install Java:** Download and install [Liberica JDK 17 Full](https://bell-sw.com/pages/downloads/#/java-17-lts). 
+1. **Install Java:** Download and install [Liberica JDK 17 Full](https://bell-sw.com/pages/downloads/?version=java-17&vtabs=true). 
    * *⚠️ Crucial: You MUST download the "Full" version so it includes the JavaFX UI libraries.*
    * *Leave the installation path as the default (`C:\Program Files\BellSoft\...`).*
 2. **Download the Game:** Go to the [Releases](../../releases) tab on the right side of this GitHub page and download `DoorDash_Game.zip`.
