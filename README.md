@@ -1,4 +1,4 @@
-# 🚪 DooR DasH: Scare vs Laugh
+# 🚪 DooR DasH: Scarer vs Laugher
 
 A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors. 
 
