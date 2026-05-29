@@ -10,6 +10,8 @@ import game.engine.Role;
 import game.engine.cards.*;
 import game.engine.cells.*;
 import game.engine.monsters.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class DataLoader {
 	private static final String CARDS_FILE_NAME = "cards.csv";
@@ -20,7 +22,8 @@ public class DataLoader {
 	public static ArrayList<Card> readCards() throws IOException {
 		ArrayList<Card> cards = new ArrayList<Card>();
 
-		BufferedReader br = new BufferedReader(new FileReader(CARDS_FILE_NAME));
+		InputStream is = DataLoader.class.getResourceAsStream("/" + CARDS_FILE_NAME);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		while (br.ready()) {
 			String nextLine = br.readLine();
@@ -64,7 +67,8 @@ public class DataLoader {
 	public static ArrayList<Cell> readCells() throws IOException {
 		ArrayList<Cell> cells = new ArrayList<Cell>();
 
-		BufferedReader br = new BufferedReader(new FileReader(CELLS_FILE_NAME));
+		InputStream is = DataLoader.class.getResourceAsStream("/" + CELLS_FILE_NAME);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		while (br.ready()) {
 			String nextLine = br.readLine();
@@ -94,7 +98,8 @@ public class DataLoader {
 	public static ArrayList<Monster> readMonsters() throws IOException {
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 
-		BufferedReader br = new BufferedReader(new FileReader(MONSTERS_FILE_NAME));
+		InputStream is = DataLoader.class.getResourceAsStream("/" + MONSTERS_FILE_NAME);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		while (br.ready()) {
 			String nextLine = br.readLine();

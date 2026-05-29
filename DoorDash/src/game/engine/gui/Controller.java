@@ -17,21 +17,23 @@ public class Controller extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
-		view = new View();
-		
-		Scene mainMenu = new Scene(root,1280,800);
-		primaryStage.setScene(mainMenu);
-		primaryStage.setTitle("Door Dash");
-		primaryStage.show();
-		primaryStage.setMaximized(true);
-		sounds.playMenuMusic();
-		
+	    Parent root = FXMLLoader.load(getClass().getResource("mainmenu.fxml"));
+	    view = new View();
+	    
+	    Scene mainMenu = new Scene(root, 1920, 1080);
+	    primaryStage.setScene(mainMenu);
+	    primaryStage.setTitle("Door Dash");
+	    primaryStage.setMaximized(true);
+	    primaryStage.show();
+	    sounds.playMenuMusic();
 	}
 	
 
 	
 	public static void main (String[]args){
+		System.setProperty("prism.allowhidpi", "false");
+		System.setProperty("glass.win.uiScale", "1.0");
+		System.setProperty("sun.java2d.uiScale.enabled", "false");
 		launch(args);
 	}
 }

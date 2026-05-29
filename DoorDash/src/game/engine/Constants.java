@@ -30,7 +30,7 @@ public final class Constants {
        =============== 3. GAME OBJECTIVES ==================
        ===================================================== */
 
-    public static final int WINNING_ENERGY = 1000;
+    public static final int WINNING_ENERGY = 750;
     public static final int MIN_ENERGY = 0;
 
     /* =====================================================
@@ -54,6 +54,6 @@ public final class Constants {
        ===================================================== */
 
     // Cost to activate a power-up (in turn)
-    public static final int POWERUP_COST = 500;
+    public static final int POWERUP_COST = 200;
 
 }

@@ -139,6 +139,14 @@ public class Board {
 	    Role oldRole = currentMonster.getRole();
 	    int oldPosition = currentMonster.getPosition();
 	    
+	    int currentPosition = currentMonster.getPosition();
+	    
+	    // The Lap Bonus Check: If the new position is smaller than the old one, 
+	    // it means they passed cell 99 and wrapped around to 0+
+	    if (currentPosition < oldPosition) {
+	        currentMonster.alterEnergy(250); 
+	    }
+	    
 	    currentMonster.move(roll);
 
 	    getCell(currentMonster.getPosition()).onLand(currentMonster, opponentMonster);

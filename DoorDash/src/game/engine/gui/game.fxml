@@ -19,30 +19,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #48505B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.GameController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #48505B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.GameController">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <HBox prefHeight="100.0" prefWidth="833.0" spacing="30.0">
+            <HBox spacing="15.0" AnchorPane.leftAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onReturnButtonClicked" style="-fx-background-radius: 100px;" text="Return To Main Menu">
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onReturnButtonClicked" style="-fx-background-radius: 100px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="Return To Main Menu">
                      <font>
-                        <Font name="Berlin Sans FB" size="40.0" />
+                        <Font name="Berlin Sans FB" size="24.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                     </padding>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onSettingsButtonClicked" style="-fx-background-radius: 100px;" text="Settings">
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#onSettingsButtonClicked" style="-fx-background-radius: 100px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="Settings">
                      <font>
-                        <Font name="Berlin Sans FB" size="40.0" />
+                        <Font name="Berlin Sans FB" size="24.0" />
                      </font>
+                     <padding>
+                        <Insets bottom="8.0" left="20.0" right="20.0" top="8.0" />
+                     </padding>
                   </Button>
                </children>
             </HBox>
-            <Button minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50em; -fx-background-color: #3589FF;" text="i" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#onQuestionMarkClicked" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 50em; -fx-background-color: #3589FF; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="i" textFill="WHITE" AnchorPane.rightAnchor="0.0">
                <font>
-                  <Font name="Serif Bold" size="36.0" />
+                  <Font name="Serif Bold" size="24.0" />
                </font>
                <tooltip>
                   <Tooltip text="How to play" />
@@ -51,153 +57,153 @@
          </children>
       </AnchorPane>
    </top>
+   
    <center>
-      <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="gameInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+            <Text fx:id="gameInfo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Info" textAlignment="CENTER" wrappingWidth="800.0">
                <font>
-                  <Font name="Berlin Sans FB Demi Bold" size="36.0" />
+                  <Font name="Berlin Sans FB Demi Bold" size="26.0" />
                </font>
             </Text>
-            <Group>
+            
+            <HBox alignment="CENTER" spacing="25.0">
                <children>
+                  
                   <StackPane>
                      <children>
-                        <HBox alignment="CENTER" spacing="60.0">
+                        <Group>
                            <children>
-                              <StackPane minWidth="-Infinity" prefHeight="602.0" prefWidth="130.0">
-                                 <children>
-                                    <Group>
-                                       <children>
-                                          <ProgressBar fx:id="playerProgressBar" prefHeight="36.0" prefWidth="116.0" progress="0.0" rotate="-90.0" scaleX="1.6" style="-fx-accent: red;" />
-                                       </children>
-                                    </Group>
-                                    <ImageView fitHeight="472.0" fitWidth="321.0" pickOnBounds="true" preserveRatio="true" scaleY="1.2">
-                                       <image>
-                                          <Image url="@canister.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="playerLabel" alignment="CENTER" text="Energy" translateY="220.0">
-                                       <font>
-                                          <Font name="Berlin Sans FB" size="22.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="100.0" />
-                                 </HBox.margin>
-                              </StackPane>
-                              <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="true" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" scaleX="1.3" scaleY="1.3">
-                                <columnConstraints>
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                    <ColumnConstraints percentWidth="10.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints maxHeight="45.0" minHeight="45.0" percentHeight="10.0" prefHeight="45.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                    <RowConstraints percentHeight="10.0" />
-                                </rowConstraints>
-                              </GridPane>
-                              <StackPane minWidth="-Infinity" prefHeight="600.0" prefWidth="130.0">
-                                 <children>
-                                    <Group>
-                                       <children>
-                                          <ProgressBar fx:id="opponentProgressBar" prefHeight="39.0" prefWidth="113.0" progress="0.0" rotate="-90.0" scaleX="1.6" style="-fx-accent: red;" />
-                                       </children>
-                                    </Group>
-                                    <ImageView fitHeight="472.0" fitWidth="321.0" pickOnBounds="true" preserveRatio="true" scaleY="1.2">
-                                       <image>
-                                          <Image url="@canister.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="opponentLabel" alignment="CENTER" text="Energy" translateY="220.0">
-                                       <font>
-                                          <Font name="Berlin Sans FB" size="22.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="100.0" />
-                                 </HBox.margin>
-                              </StackPane>
+                              <ProgressBar fx:id="playerProgressBar" prefHeight="25.0" prefWidth="100.0" progress="0.0" rotate="-90.0" scaleX="1.4" style="-fx-accent: red;" />
                            </children>
-                        </HBox>
-                        <ImageView fitHeight="197.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" scaleX="4.0" scaleY="4.0">
+                        </Group>
+                        <ImageView fitHeight="350.0" preserveRatio="true">
+                           <image>
+                              <Image url="@canister.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="playerLabel" text="Energy" textFill="BLACK" translateY="130.0">
+                           <font>
+                              <Font name="Berlin Sans FB" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  
+                  <StackPane maxHeight="600.0" maxWidth="600.0" prefHeight="600.0" prefWidth="600.0">
+                     <children>
+                        <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="true" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: white;">
+                           <columnConstraints>
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                              <ColumnConstraints percentWidth="10.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                              <RowConstraints percentHeight="10.0" />
+                           </rowConstraints>
+                        </GridPane>
+                        <ImageView fitHeight="600.0" fitWidth="600.0" mouseTransparent="true" pickOnBounds="true">
                            <image>
                               <Image url="@coveyorsandsocks.png" />
                            </image>
                         </ImageView>
                      </children>
                   </StackPane>
+                  
+                  <StackPane>
+                     <children>
+                        <Group>
+                           <children>
+                              <ProgressBar fx:id="opponentProgressBar" prefHeight="25.0" prefWidth="100.0" progress="0.0" rotate="-90.0" scaleX="1.4" style="-fx-accent: red;" />
+                           </children>
+                        </Group>
+                        <ImageView fitHeight="350.0" preserveRatio="true">
+                           <image>
+                              <Image url="@canister.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="opponentLabel" text="Energy" textFill="BLACK" translateY="130.0">
+                           <font>
+                              <Font name="Berlin Sans FB" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  
                </children>
-            </Group>
+            </HBox>
          </children>
       </VBox>
    </center>
+   
    <left>
-      <StackPane prefWidth="280.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_LEFT" prefWidth="250.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="30.0" left="40.0" />
+            <Insets left="20.0" />
          </BorderPane.margin>
          <children>
-            <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="280.0" StackPane.alignment="CENTER_LEFT">
+            <Text fx:id="playerStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Stats" wrappingWidth="250.0">
                <font>
-                  <Font name="Berlin Sans FB" size="24.0" />
+                  <Font name="Berlin Sans FB" size="22.0" />
                </font>
             </Text>
          </children>
-      </StackPane>
+      </VBox>
    </left>
+   
    <right>
-      <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="RIGHT" wrappingWidth="280.0" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Berlin Sans FB" size="24.0" />
-         </font>
+      <VBox alignment="CENTER_RIGHT" prefWidth="250.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets right="40.0" />
-         </BorderPane.margin>
-      </Text>
-   </right>
-   <bottom>
-      <StackPane BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="30.0" />
+            <Insets right="20.0" />
          </BorderPane.margin>
          <children>
-            <ImageView fx:id="diceImageView" fitHeight="150.0" fitWidth="150.0" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
-               <StackPane.margin>
-                  <Insets bottom="10.0" left="10.0" />
-               </StackPane.margin></ImageView>
-            <HBox alignment="CENTER" spacing="60.0">
+            <Text fx:id="opponentStats" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent Stats" textAlignment="RIGHT" wrappingWidth="250.0">
+               <font>
+                  <Font name="Berlin Sans FB" size="22.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </right>
+   
+   <bottom>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="5.0" />
+         </BorderPane.margin>
+         <children>
+            <ImageView fx:id="diceImageView" fitHeight="80.0" fitWidth="80.0" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <HBox alignment="CENTER" spacing="40.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="playTurnButton" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-radius: 100px;" text="Play Turn">
+                  <Button fx:id="playTurnButton" focusTraversable="false" minHeight="55.0" minWidth="200.0" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-radius: 100px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="Play Turn">
                      <font>
-                        <Font name="Berlin Sans FB" size="45.0" />
+                        <Font name="Berlin Sans FB" size="28.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPowerup" style="-fx-background-radius: 100px;" text="Use Powerup" textAlignment="CENTER">
+                  <Button focusTraversable="false" minHeight="55.0" minWidth="200.0" mnemonicParsing="false" onAction="#onPowerup" style="-fx-background-radius: 100px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="Use Powerup">
                      <font>
-                        <Font name="Berlin Sans FB" size="45.0" />
+                        <Font name="Berlin Sans FB" size="28.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
          </children>
-      </StackPane>
+      </AnchorPane>
    </bottom>
 </BorderPane>
