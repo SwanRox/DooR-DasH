@@ -1,20 +1,8 @@
-# 🚪 DooR DasH: Scarer vs Laugher
+# 🚪 DooR DasH: Scare vs Laugh
 
-A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board (0-99) collecting energy from children's doors. 
+A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors. 
 
 Built across 3 progressive milestones covering OOP data structures, a custom game engine, and a fully responsive JavaFX GUI following the MVC architectural pattern.
-
----
-
-## 🎮 How to Download & Play
-
-You do not need an IDE to play this game. Just follow these steps:
-
-1. **Install Java:** Download and install [Liberica JDK 17 Full](https://bell-sw.com/pages/downloads/#/java-17-lts). 
-   * *⚠️ Crucial: You MUST download the "Full" version so it includes the JavaFX UI libraries.*
-   * *Leave the installation path as the default (`C:\Program Files\BellSoft\...`).*
-2. **Download the Game:** Go to the [Releases](../../releases) tab on the right side of this GitHub page and download `DoorDash_Game.zip`.
-3. **Play:** Extract the ZIP folder, open it, and double-click `Play.bat`. The game will launch automatically!
 
 ---
 
@@ -75,3 +63,15 @@ Cards are drawn at random from a shuffled deck and execute immediately:
 * *[Add Teammate 3 Here]*
 
 *German International University (GIU) — Programming II Project*
+
+---
+
+## 🎮 How to Download & Play
+
+You do not need an IDE to play this game. Just follow these steps:
+
+1. **Install Java:** Download and install [Liberica JDK 17 Full](https://bell-sw.com/pages/downloads/#/java-17-lts). 
+   * *⚠️ Crucial: You MUST download the "Full" version so it includes the JavaFX UI libraries.*
+   * *Leave the installation path as the default (`C:\Program Files\BellSoft\...`).*
+2. **Download the Game:** Go to the [Releases](../../releases) tab on the right side of this GitHub page and download `DoorDash_Game.zip`.
+3. **Play:** Extract the ZIP folder, open it, and double-click `Play.bat`. The game will launch automatically!
