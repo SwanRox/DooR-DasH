@@ -1,4 +1,4 @@
-# 🚪 DooR DasH: Scare vs Laugh
+# 🚪 DooR DasH: Scarer vs Laugher
 
 ![Java](https://img.shields.io/badge/Java-17-F89820?style=flat-square)
 ![JavaFX](https://img.shields.io/badge/JavaFX-GUI-0073B6?style=flat-square)
