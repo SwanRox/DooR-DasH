@@ -6,7 +6,6 @@
 ![Architecture](https://img.shields.io/badge/Architecture-MVC-purple?style=flat-square)
 ![Version Control](https://img.shields.io/badge/Version%20Control-Git-F05032?style=flat-square)
 
-A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors.
 
 A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors. 
 
