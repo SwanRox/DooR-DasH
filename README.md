@@ -1,4 +1,12 @@
-# 🚪 DooR DasH: Scarer vs Laugher
+# 🚪 DooR DasH: Scare vs Laugh
+
+![Java](https://img.shields.io/badge/Java-17-F89820?style=flat-square)
+![JavaFX](https://img.shields.io/badge/JavaFX-GUI-0073B6?style=flat-square)
+![Paradigm](https://img.shields.io/badge/Paradigm-OOP-4c1?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-MVC-purple?style=flat-square)
+![Version Control](https://img.shields.io/badge/Version%20Control-Git-F05032?style=flat-square)
+
+A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors.
 
 A fully playable strategy board game built in Java with JavaFX, inspired by the Monsters Inc. universe. Two monsters race across a 100-cell board collecting energy from children's doors. 
 
