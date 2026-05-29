@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.engine.gui.SettingsController"> <children>
+      <ScrollPane fitToWidth="true" prefHeight="531.0" prefWidth="500.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox prefWidth="485.0" spacing="15.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="33.0" prefWidth="484.0" text="Settings" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Berlin Sans FB" size="45.0" />
+                     </font>
+                  </Label>
+                  
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="849.0" text="Sound" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Berlin Sans FB" size="33.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="35.0" prefWidth="458.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="159.0" text="Volume">
+                           <font>
+                              <Font name="Berlin Sans FB" size="27.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="volumeslider" prefHeight="14.0" prefWidth="200.0" value="30.0" />
+                        <Button fx:id="setvolumebutton" mnemonicParsing="false" onAction="#onSetVolumeButton" prefHeight="25.0" prefWidth="81.0" style="-fx-background-radius: 100px;" text="Set">
+                           <font>
+                              <Font name="Berlin Sans FB" size="24.0" />
+                           </font></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Button layoutX="198.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCloseButton" prefHeight="25.0" prefWidth="105.0" style="-fx-background-radius: 100px;" text="Close" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="197.0">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

@@ -28,7 +28,7 @@
                         <Font name="Berlin Sans FB" size="33.0" />
                      </font>
                   </Label>
-                  <Label text="Navigate the Floor to land EXACTLY on Boo's Door (Cell 99) with at least 1000 energy. Overshooting wraps you back to the beginning of the board." wrapText="true">
+                  <Label text="Navigate the Floor to land EXACTLY on Boo's Door (Cell 99) with at least 750 energy. Overshooting wraps you back to the beginning of the board and grants a 250 energy bonus!" wrapText="true">
                      <font>
                         <Font name="Cambria" size="25.0" />
                      </font>
@@ -60,7 +60,7 @@
                   </Label>
                   <VBox spacing="8.0">
                      <children>
-                        <Label text="1. Powerup Phase (Optional): Costs 500 energy." wrapText="true">
+                        <Label text="1. Powerup Phase (Optional): Costs 200 energy." wrapText="true">
                            <font><Font name="Cambria" size="25.0" /></font>
                         </Label>
                         <Label text="2. Dice Roll: Roll a standard 6-sided dice." wrapText="true">

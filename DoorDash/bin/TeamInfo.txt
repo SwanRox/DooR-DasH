@@ -1,0 +1,19 @@
+Team Name: Half Byte
+
+Team Member 1 Name: Mohsen Mohamed Khafagy
+Team Member 1 ID: 19007005
+Team Member 1 Tutorial Group: T014
+
+Team Member 2 Name: Mohammed Hassan ElSayed Mohammed Gabal
+Team Member 2 ID: 19002131
+Team Member 2 Tutorial Group: T025
+
+Team Member 3 Name: Anas Ossama Mohamed Muharram
+Team Member 3 ID: 19007763
+Team Member 3 Tutorial Group: T022
+
+Team Member 4 Name: Zyad Amr Alsayed
+Team Member 4 ID: 19010035
+Team Member 4 Tutorial Group: T020
+
+It should be possible to easily import the project by importing it as an archive file inside an empty java project.
