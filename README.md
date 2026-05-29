@@ -59,9 +59,9 @@ Cards are drawn at random from a shuffled deck and execute immediately:
 
 ## 👥 Team
 * **Zyad Amr Alsayed** ([@swanrox](https://github.com/swanrox))
-* *Mohammed Hassan ElSayed* ([@Mohassan84](https://github.com/Mohassan84))
-* *Anas Ossama Mohamed* ([@AnasMuharram](https://github.com/AnasMuharram))
-* *Mohsen Mohamed Khafagy* ([@CorporalChicken](https://github.com/CorporalChicken))
+* **Mohammed Hassan ElSayed** ([@Mohassan84](https://github.com/Mohassan84))
+* **Anas Ossama Mohamed** ([@AnasMuharram](https://github.com/AnasMuharram))
+* **Mohsen Mohamed Khafagy** ([@CorporalChicken](https://github.com/CorporalChicken))
 
 *German International University (GIU) — Programming II Project*
 
